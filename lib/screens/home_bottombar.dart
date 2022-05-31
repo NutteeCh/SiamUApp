@@ -16,7 +16,6 @@ class HomeBottomBar extends StatefulWidget {
 }
 
 class _HomeBottomBarState extends State<HomeBottomBar> {
-
   int currentTab = 2;
   final List<Widget> screens = [
     const ProfileScreen(),
@@ -37,11 +36,20 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.home),
-        onPressed: (){
-          if(currentTab == 2){
-          
-          }else{
+        child: Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: [SiamColors.red, SiamColors.orange],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )),
+            child: Icon(Icons.home)),
+        onPressed: () {
+          if (currentTab == 2) {
+          } else {
             Navigator.of(context).pushNamed("/homebar");
           }
         },
@@ -57,7 +65,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
             children: [
               MaterialButton(
                 minWidth: 40,
-                onPressed: (){
+                onPressed: () {
                   setState(() {
                     currentScreen = const ProfileScreen();
                     currentTab = 0;
@@ -72,7 +80,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
               ),
               MaterialButton(
                 minWidth: 40,
-                onPressed: (){
+                onPressed: () {
                   setState(() {
                     currentScreen = const ServiceScreen();
                     currentTab = 1;
@@ -88,9 +96,8 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
               MaterialButton(
                 splashColor: Colors.transparent,
                 minWidth: 40,
-                onPressed: (){
-                  setState(() {
-                  });
+                onPressed: () {
+                  setState(() {});
                 },
                 child: Center(
                   child: Icon(
@@ -101,7 +108,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
               ),
               MaterialButton(
                 minWidth: 40,
-                onPressed: (){
+                onPressed: () {
                   setState(() {
                     currentScreen = const ReportListScreen();
                     currentTab = 3;
@@ -116,7 +123,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
               ),
               MaterialButton(
                 minWidth: 40,
-                onPressed: (){
+                onPressed: () {
                   setState(() {
                     currentScreen = const SettingScreen();
                     currentTab = 4;
