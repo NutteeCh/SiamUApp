@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projectreportsiamu/screens/bottom_nav_screen.dart';
+import 'package:projectreportsiamu/screens/home_bottombar.dart';
 import 'package:projectreportsiamu/screens/home_screen.dart';
 import 'package:projectreportsiamu/screens/login_screen.dart';
 import 'package:projectreportsiamu/screens/profile_screen.dart';
@@ -27,12 +27,12 @@ class MyApp extends StatelessWidget {
         "/": (context) => const SplashScreen(),
         "/login": (context) => const LoginScreen(),
         "/register": (context) => const RegisterScreen(),
+        "/homebar": (context) => const HomeBottomBar(),
         "/home": (context) => const HomeScreen(),
         "/profile": (context) => const ProfileScreen(),
         "/service": (context) => const ServiceScreen(),
         "/reportlist": (context) => const ReportListScreen(),
         "/setting": (context) => const SettingScreen(),
-        "/bottomnav": (context) => const BottomNavScreen(),
       },
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );

@@ -114,4 +114,10 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
     );
   }
+  
+  _selectedTab(int index) {
+    setState(() {
+      int _selectedIndex = index;
+    });
+  }
 }
