@@ -4,6 +4,7 @@ import 'package:projectreportsiamu/screens/home_screen.dart';
 import 'package:projectreportsiamu/screens/login_screen.dart';
 import 'package:projectreportsiamu/screens/profile_screen.dart';
 import 'package:projectreportsiamu/screens/register_screen.dart';
+import 'package:projectreportsiamu/screens/report_form_screen.dart';
 import 'package:projectreportsiamu/screens/report_list_screen.dart';
 import 'package:projectreportsiamu/screens/service_screen.dart';
 import 'package:projectreportsiamu/screens/setting_screen.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Siam U',
       theme: ThemeData(fontFamily: "Roboto"),
       initialRoute: "/",
       routes: {
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         "/home": (context) => const HomeScreen(),
         "/profile": (context) => const ProfileScreen(),
         "/service": (context) => const ServiceScreen(),
+        "/report":(context) => const ReportFormScreen(),
         "/reportlist": (context) => const ReportListScreen(),
         "/setting": (context) => const SettingScreen(),
       },

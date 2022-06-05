@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).pushNamed("/");
+                                Navigator.of(context).pushNamed("/report");
                               },
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 5.0),
