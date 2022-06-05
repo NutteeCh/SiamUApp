@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Container(
           height: double.infinity,
           width: double.infinity,
-          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
+          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4 - 20),
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
@@ -77,9 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       itemBuilder: (context, pagePosition) {
                         return Container(
-                          margin: EdgeInsets.all(10),
-                          child: Image.network(images[pagePosition],
-                              fit: BoxFit.cover),
+                          margin: const EdgeInsets.all(8.0),
+                          child: Image.network(
+                            images[pagePosition],
+                            fit: BoxFit.cover),
                         );
                       }),
                 ),
@@ -87,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: indicators(images.length, activePage)),
                 SizedBox(
-                  height: 20,
+                  height: 10.0,
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -102,12 +103,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 25,
+                  height: 20.0,
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 20),
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
                           children: [
@@ -116,6 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Navigator.of(context).pushNamed("/");
                               },
                               child: Container(
+                                margin: EdgeInsets.only(bottom: 5.0),
                                 height: 80,
                                 width: 80,
                                 decoration: BoxDecoration(
@@ -139,7 +141,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 )),
                               ),
                             ),
-                            Text("ร้องเรียนปัญหา"),
+                            Text("ร้องเรียนปัญหา",
+                            style: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 10,
+                              color: Colors.black,
+                            ),
+                            ),
                           ],
                         ),
                         Column(
@@ -149,6 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Navigator.of(context).pushNamed("/");
                               },
                               child: Container(
+                                margin: EdgeInsets.only(bottom: 5.0),
                                 height: 80,
                                 width: 80,
                                 decoration: BoxDecoration(
@@ -172,7 +181,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 )),
                               ),
                             ),
-                            Text("รายการที่ร้องเรียน"),
+                            Text("รายการที่ร้องเรียน",
+                            style: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 10,
+                              color: Colors.black,
+                            ),
+                            ),
                           ],
                         ),
                         Column(
@@ -182,6 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Navigator.of(context).pushNamed("/");
                               },
                               child: Container(
+                                margin: EdgeInsets.only(bottom: 5.0),
                                 height: 80,
                                 width: 80,
                                 decoration: BoxDecoration(
@@ -205,7 +221,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 )),
                               ),
                             ),
-                            Text("ติดต่อเจ้าหน้าที่"),
+                            Text("ติดต่อเจ้าหน้าที่",
+                            style: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 10,
+                              color: Colors.black,
+                            ),
+                            ),
                           ],
                         ),
                         Container(
@@ -214,13 +236,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         )
                       ]),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
                 Container(
+                  margin: const EdgeInsets.only(top: 20.0,left: 20.0,right: 20.0),
                   width: 390,
-                  height: 154,
+                  height: 160,
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 3,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
                       image: DecorationImage(
                           image: AssetImage(
                             "assets/images/bottombg1.jpg",

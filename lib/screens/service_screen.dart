@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../ีutils/global_variable.dart';
+import 'package:projectreportsiamu/services/url_launch.dart';
 
 class ServiceScreen extends StatefulWidget {
   const ServiceScreen({Key? key}) : super(key: key);
@@ -12,6 +14,8 @@ class ServiceScreen extends StatefulWidget {
 }
 
 class _ServiceScreenState extends State<ServiceScreen> {
+
+  final URLLaunch ulaunch = new URLLaunch();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +24,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
         title: Text("หน่วยงานบริการ"),
         backgroundColor: SiamColors.red,
       ),
-      body: Stack(
+      body: Column(
         children: [
           Container(
             alignment: Alignment.topLeft,
@@ -35,9 +39,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 10, top: 60),
+            margin: EdgeInsets.only(left: 20, top: 20),
             child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     children: [
@@ -46,6 +50,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           Navigator.of(context).pushNamed("/");
                         },
                         child: Container(
+                          margin: EdgeInsets.only(bottom: 5.0),
                           height: 80,
                           width: 80,
                           decoration: BoxDecoration(
@@ -69,7 +74,13 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           )),
                         ),
                       ),
-                      Text("ร้องเรียนปัญหา"),
+                      Text("ร้องเรียนปัญหา",
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 10,
+                        color: Colors.black,
+                      ),
+                      ),
                     ],
                   ),
                   Column(
@@ -79,6 +90,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           Navigator.of(context).pushNamed("/");
                         },
                         child: Container(
+                          margin: EdgeInsets.only(bottom: 5.0),
                           height: 80,
                           width: 80,
                           decoration: BoxDecoration(
@@ -102,7 +114,13 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           )),
                         ),
                       ),
-                      Text("รายการที่ร้องเรียน"),
+                      Text("รายการที่ร้องเรียน",
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 10,
+                        color: Colors.black,
+                      ),
+                      ),
                     ],
                   ),
                   Container(
@@ -116,8 +134,8 @@ class _ServiceScreenState extends State<ServiceScreen> {
                 ]),
           ),
           Container(
-            // alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(left: 20, top: 200),
+            alignment: Alignment.centerLeft,
+            margin: EdgeInsets.only(left: 20, top: 20),
             child: Text(
               "ช่องทางการติดต่อ",
               style: TextStyle(
@@ -127,13 +145,10 @@ class _ServiceScreenState extends State<ServiceScreen> {
               ),
             ),
           ),
-          SizedBox(
-            height: 25,
-          ),
           Container(
-            margin: EdgeInsets.only(left: 10, top: 240),
+            margin: EdgeInsets.only(left: 20, top: 20),
             child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     children: [
@@ -142,6 +157,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           Navigator.of(context).pushNamed("/");
                         },
                         child: Container(
+                          margin: EdgeInsets.only(bottom: 5.0),
                           height: 80,
                           width: 80,
                           decoration: BoxDecoration(
@@ -165,16 +181,23 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           )),
                         ),
                       ),
-                      Text("ติดต่อเจ้าหน้าที่"),
+                      Text("ติดต่อเจ้าหน้าที่",
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 10,
+                        color: Colors.black,
+                      ),
+                      ),
                     ],
                   ),
                   Column(
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed("/");
+                          ulaunch.launchURLWeb();
                         },
                         child: Container(
+                          margin: EdgeInsets.only(bottom: 5.0),
                           height: 80,
                           width: 80,
                           decoration: BoxDecoration(
@@ -194,20 +217,27 @@ class _ServiceScreenState extends State<ServiceScreen> {
                               child: Icon(
                             Icons.help,
                             color: Colors.red,
-                            size: 50,
+                            size: 60,
                           )),
                         ),
                       ),
-                      Text("WWW.Siam.edu"),
+                      Text("www.Siam.edu",
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 10,
+                        color: Colors.black,
+                      ),
+                      ),
                     ],
                   ),
                   Column(
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed("/");
+                          ulaunch.launchURLFacebook();
                         },
                         child: Container(
+                          margin: EdgeInsets.only(bottom: 5.0),
                           height: 80,
                           width: 80,
                           decoration: BoxDecoration(
@@ -227,11 +257,17 @@ class _ServiceScreenState extends State<ServiceScreen> {
                               child: Icon(
                             Icons.facebook,
                             color: Colors.blue,
-                            size: 50,
+                            size: 60,
                           )),
                         ),
                       ),
-                      Text("Siam University"),
+                      Text("Siam University",
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 10,
+                        color: Colors.black,
+                      ),
+                      ),
                     ],
                   ),
                   Container(
