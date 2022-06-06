@@ -231,14 +231,15 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: Center(
-                                child: Icon(
-                              Icons.help,
-                              color: Colors.red,
-                              size: 60,
-                            )),
+                                child: Image.asset(
+                                  'assets/images/logo.png',
+                                  height: 50,
+                                  width: 50,
+                                )
+                            ),
                           ),
                         ),
-                        Text("www.Siam.edu",
+                        Text("เว็บไซต์ Siam.edu",
                         style: TextStyle(
                           fontFamily: "Roboto",
                           fontSize: 10,

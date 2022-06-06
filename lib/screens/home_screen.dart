@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -14,11 +15,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
   List<String> images = [
-    "https://images.wallpapersden.com/image/download/purple-sunrise-4k-vaporwave_bGplZmiUmZqaraWkpJRmbmdlrWZlbWU.jpg",
-    "https://wallpaperaccess.com/full/2637581.jpg",
-    "https://uhdwallpapers.org/uploads/converted/20/01/14/the-mandalorian-5k-1920x1080_477555-mm-90.jpg"
+    "https://scontent.fbkk22-8.fna.fbcdn.net/v/t39.30808-6/277365972_5165375340172320_7044774167627325391_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeFobf11GjK20D26jRYsitsXmRCQkkQh_6GZEJCSRCH_ofLiXZAYPg2r3nWAAnpo5PRWfWbJTjmqnUp8dEvEpGI4&_nc_ohc=rwfypF9OrTkAX8w0LXX&_nc_ht=scontent.fbkk22-8.fna&oh=00_AT9N1OBSlGmJ296pkhU3t29OAVQGixk8os9M5mei6WmxEg&oe=62A1AA9F",
+    "https://scontent.fbkk22-8.fna.fbcdn.net/v/t39.30808-6/280754932_5275998395776680_7539697406378804306_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeENjN4ZWdSW2jPdLHtScnm-uHRW1t-yTIe4dFbW37JMh6t-e2lC1f-SvYs6qa7p6t8xrK9fBAt8vPMvrytbvmoo&_nc_ohc=ihYcRoEp9vsAX9VM3CV&_nc_ht=scontent.fbkk22-8.fna&oh=00_AT8mHgxBETH4ZqiO_MnAtLUDvPHgRQq5p-9R0eLAi_yxyw&oe=62A26D13",
+    "https://scontent.fbkk22-2.fna.fbcdn.net/v/t39.30808-6/274410903_5058572177519304_906392865158090490_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeGJsewGFLX-pJ79ldFvodYCirLG8FRf6ViKssbwVF_pWNVCcOQO9Gqz37qXIRw__FCbpJ9DcE9VH9Ghk2Nmuvv-&_nc_ohc=176JZHmlepYAX_9ZCV2&_nc_ht=scontent.fbkk22-2.fna&oh=00_AT-luv3d-WdBjMy1pi8x7nB5M0XU4Kewau-_bdYT8jbK4A&oe=62A24C2F"
   ];
-  int activePage = 1;
+  int activePage = 0;
 
   List<Widget> indicators(imagesLength, currentIndex) {
     return List<Widget>.generate(imagesLength, (index) {
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
         width: 10,
         height: 10,
         decoration: BoxDecoration(
-            color: currentIndex == index ? Colors.black : Colors.black26,
+            color: currentIndex == index ? SiamColors.red : Colors.black26,
             shape: BoxShape.circle),
       );
     });
@@ -62,31 +63,83 @@ class _HomeScreenState extends State<HomeScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  margin: EdgeInsets.only(top: 30),
-                  height: 150,
-                  width: MediaQuery.of(context).size.width,
-                  child: PageView.builder(
-                      itemCount: images.length,
-                      pageSnapping: true,
-                      controller: _pageController,
-                      onPageChanged: (page) {
-                        setState(() {
-                          activePage = page;
-                        });
-                      },
-                      itemBuilder: (context, pagePosition) {
+                SizedBox(
+                  height: 25.0,
+                ),
+                // Container(
+                //   margin: EdgeInsets.only(top: 30),
+                //   height: 150,
+                //   width: MediaQuery.of(context).size.width,
+                //   child: PageView.builder(
+                //       itemCount: images.length,
+                //       pageSnapping: true,
+                //       controller: _pageController,
+                //       onPageChanged: (page) {
+                //         setState(() {
+                //           activePage = page;
+                //         });
+                //       },
+                //       itemBuilder: (context, pagePosition) {
+                //         return Container(
+                //           margin: const EdgeInsets.all(8.0),
+                //           child: Image.network(
+                //             images[pagePosition],
+                //             fit: BoxFit.cover),
+                //         );
+                //       }),
+                // ),
+                // Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: indicators(images.length, activePage)
+                // ),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 150,
+                    enlargeCenterPage: true,
+                    autoPlay: true,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    aspectRatio: 16/9,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: Duration(milliseconds: 900),
+                    onPageChanged: (index, reason){
+                      setState(() {
+                        activePage = index;
+                      });
+                    }
+                  ),
+                  items: images.map<Widget>((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
                         return Container(
-                          margin: const EdgeInsets.all(8.0),
-                          child: Image.network(
-                            images[pagePosition],
-                            fit: BoxFit.cover),
-                        );
-                      }),
+                                //margin: EdgeInsets.all(6.0),
+                                decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.0),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 7,
+                                    offset: Offset(0,2), // changes position of shadow
+                                  ),
+                                ],
+                                image: DecorationImage(
+                                  image: NetworkImage(i),
+                                  fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                      },
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 10.0,
                 ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: indicators(images.length, activePage)),
+                    children: indicators(images.length, activePage)
+                ),
                 SizedBox(
                   height: 10.0,
                 ),

@@ -73,7 +73,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                 },
                 child: Center(
                   child: Icon(
-                    Icons.person,
+                    currentTab == 0 ? Icons.person : Icons.person_outline_outlined,
                     color: currentTab == 0 ? SiamColors.red : SiamColors.grey,
                   ),
                 ),
@@ -88,7 +88,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                 },
                 child: Center(
                   child: Icon(
-                    Icons.widgets,
+                    currentTab == 1 ? Icons.widgets : Icons.widgets_outlined,
                     color: currentTab == 1 ? SiamColors.red : SiamColors.grey,
                   ),
                 ),
@@ -116,7 +116,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                 },
                 child: Center(
                   child: Icon(
-                    Icons.list_alt_outlined,
+                    Icons.list_alt,
                     color: currentTab == 3 ? SiamColors.red : SiamColors.grey,
                   ),
                 ),
@@ -131,7 +131,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                 },
                 child: Center(
                   child: Icon(
-                    Icons.settings,
+                    currentTab == 4 ? Icons.settings : Icons.settings_outlined,
                     color: currentTab == 4 ? SiamColors.red : SiamColors.grey,
                   ),
                 ),

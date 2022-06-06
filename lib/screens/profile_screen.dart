@@ -21,7 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Container(
             alignment: Alignment.topCenter,
             height: MediaQuery.of(context).size.height / 4 + 20,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               //color: SiamColors.red
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -30,11 +30,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               )
               ),
             child: Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(vertical: 50),
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                border: Border.all(color: Colors.white),
+                color: Colors.grey
+              ),
               child: Center(
                   child: Icon(
                 Icons.person_rounded,
                 color: Colors.white,
-                size: 100,
+                size: 80,
               )),
             ),
           ),

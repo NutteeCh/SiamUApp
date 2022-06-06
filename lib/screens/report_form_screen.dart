@@ -90,6 +90,11 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(left: 10),
                           hintText: "หัวข้อเรื่อง",
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 14,
+                              color: SiamColors.grey,
+                          ),
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.black,
@@ -116,6 +121,14 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
+                        hint: Text(
+                          'ประเภทของปัญหา',
+                            style: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 14,
+                              color: SiamColors.grey,
+                            ),
+                          ),
                         value: reportTypeText,
                         isExpanded: true,
                         items: typeList.map(buildMenuItem).toList(),
@@ -134,6 +147,11 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(left: 10,top: 20.0),
                           hintText: "เนื้อหาที่ต้องการร้องเรียน...",
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 14,
+                              color: SiamColors.grey,
+                          ),
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.black,
@@ -157,6 +175,11 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(left: 10),
                           hintText: "เบอร์โทรติดต่อกลับ",
+                          hintStyle: TextStyle(
+                              fontFamily: "Roboto",
+                              fontSize: 14,
+                              color: SiamColors.grey,
+                          ),
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.black,
