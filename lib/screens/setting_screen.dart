@@ -16,8 +16,24 @@ class _SettingScreenState extends State<SettingScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("การตั้งค่า"),
-        backgroundColor: SiamColors.red,
+        toolbarHeight: 76,
+        title: Text("การตั้งค่า",
+        style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.bold
+                  ),
+        ),
+        //backgroundColor: SiamColors.red,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[SiamColors.red, SiamColors.orange]),
+          ),
+        ),
       ),
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.center,

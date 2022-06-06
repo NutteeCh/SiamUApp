@@ -21,8 +21,24 @@ class _ServiceScreenState extends State<ServiceScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("หน่วยงานบริการ"),
-        backgroundColor: SiamColors.red,
+        toolbarHeight: 76,
+        title: Text("หน่วยงานบริการ",
+        style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.bold
+                  ),
+        ),
+        //backgroundColor: SiamColors.red,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[SiamColors.red, SiamColors.orange]),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

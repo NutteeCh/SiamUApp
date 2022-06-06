@@ -27,8 +27,9 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 200,
+              height: 220,
             ),
+            SizedBox(height: 20.0),
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.only(left: 50),
@@ -73,13 +74,17 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed("/home");
+                Navigator.of(context).pushNamed("/homebar");
               },
               child: Container(
                 height: 50,
                 width: 300,
                 decoration: BoxDecoration(
-                    color: SiamColors.red,
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [SiamColors.orange,SiamColors.red]
+                    ),
                     borderRadius: BorderRadius.all(Radius.circular(25))),
                 child: Center(
                     child: Text(
