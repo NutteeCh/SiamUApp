@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:projectreportsiamu/%E0%B8%B5utils/global_variable.dart';
 
 class ReportFormScreen extends StatefulWidget {
@@ -13,10 +17,27 @@ class ReportFormScreen extends StatefulWidget {
 }
 
 class _ReportFormScreenState extends State<ReportFormScreen> {
+
   String? reportTypeText;
+
   final topicController = TextEditingController();
   final contentController = TextEditingController();
   final telController = TextEditingController();
+
+  File? image;
+
+  //imagepicker
+  Future pickImage(ImageSource source) async {
+    try{
+      final image = await ImagePicker().pickImage(source: source);
+    if(image == null) return ;
+
+    final imageTemporary = File(image.path);
+    setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e){
+      print(e);
+    }
+  }
 
   // Firebase
   CollectionReference reportform =
@@ -224,7 +245,7 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                           alignment: Alignment.center,
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context).pushNamed("/");
+                              pickImage(ImageSource.camera);
                             },
                             child: Container(
                               height: 40,
@@ -282,7 +303,7 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                           alignment: Alignment.center,
                           child: InkWell(
                             onTap: () {
-                              Navigator.of(context).pushNamed("/");
+                              pickImage(ImageSource.gallery);
                             },
                             child: Container(
                               height: 40,
