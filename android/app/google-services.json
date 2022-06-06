@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "818769983463",
+    "project_id": "siamuapp-63364",
+    "storage_bucket": "siamuapp-63364.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818769983463:android:afb568f70d6df28d35af42",
+        "android_client_info": {
+          "package_name": "com.example.projectreportsiamu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818769983463-60c3nbj5lpo0jeo5iv53ujshl9l3d56f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6aNt7CkZDZw5ivwkJJSDmoXTznCV-dHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818769983463-60c3nbj5lpo0jeo5iv53ujshl9l3d56f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

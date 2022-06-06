@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:projectreportsiamu/screens/home_bottombar.dart';
 import 'package:projectreportsiamu/screens/home_screen.dart';
 import 'package:projectreportsiamu/screens/login_screen.dart';
@@ -10,7 +11,10 @@ import 'package:projectreportsiamu/screens/service_screen.dart';
 import 'package:projectreportsiamu/screens/setting_screen.dart';
 import 'package:projectreportsiamu/screens/splash_screen.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -32,7 +36,7 @@ class MyApp extends StatelessWidget {
         "/home": (context) => const HomeScreen(),
         "/profile": (context) => const ProfileScreen(),
         "/service": (context) => const ServiceScreen(),
-        "/report":(context) => const ReportFormScreen(),
+        "/report": (context) => const ReportFormScreen(),
         "/reportlist": (context) => const ReportListScreen(),
         "/setting": (context) => const SettingScreen(),
       },
