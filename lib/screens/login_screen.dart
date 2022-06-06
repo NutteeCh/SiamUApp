@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,6 +13,35 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final emailLoginController = TextEditingController();
+  final passwordLoginController = TextEditingController();
+
+  void _signInWithEmailAndPassword() async {
+    try {
+      final user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailLoginController.text,
+        password: passwordLoginController.text,
+      ))
+          .user;
+
+      if (user != null) {
+        setState(() {
+          Navigator.of(context).pushNamed("/homebar");
+        });
+      } else {
+        setState(() {
+          Navigator.of(context).pushNamed("/");
+        });
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Container(
               margin: EdgeInsets.only(left: 50, right: 50),
               child: TextFormField(
+                controller: emailLoginController,
                 decoration: InputDecoration(
                     icon: Icon(Icons.person), labelText: "email@siam.edu"),
               ),
@@ -65,6 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Container(
               margin: EdgeInsets.only(left: 50, right: 50),
               child: TextFormField(
+                controller: passwordLoginController,
                 decoration: InputDecoration(icon: Icon(Icons.key)),
                 obscureText: true,
               ),
@@ -73,18 +105,17 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 30,
             ),
             InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed("/homebar");
+              onTap: () async {
+                _signInWithEmailAndPassword();
               },
               child: Container(
                 height: 50,
                 width: 300,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [SiamColors.orange,SiamColors.red]
-                    ),
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [SiamColors.orange, SiamColors.red]),
                     borderRadius: BorderRadius.all(Radius.circular(25))),
                 child: Center(
                     child: Text(

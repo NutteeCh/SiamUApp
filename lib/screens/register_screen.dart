@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,6 +13,15 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  String? facultyText;
+
+  final nameController = TextEditingController();
+  final surnameController = TextEditingController();
+  final studentidController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final passwordConfirmedController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,6 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 40,
                 margin: EdgeInsets.only(left: 30, right: 30),
                 child: TextFormField(
+                  controller: nameController,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       hintText: "ชื่อ",
@@ -79,6 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 40,
                 margin: EdgeInsets.only(left: 30, right: 30),
                 child: TextFormField(
+                  controller: surnameController,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       hintText: "นามสกุล",
@@ -102,6 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 40,
                 margin: EdgeInsets.only(left: 30, right: 30),
                 child: TextFormField(
+                  controller: studentidController,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       hintText: "รหัสนักศึกษา",
@@ -124,21 +137,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Container(
                 height: 40,
                 margin: EdgeInsets.only(left: 30, right: 30),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 10),
-                      hintText: "คณะ",
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: SiamColors.red,
-                          ),
-                          borderRadius: BorderRadius.circular(10)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: SiamColors.red,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      )),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(color: SiamColors.red)),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    hint: Text(
+                      'คณะ',
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 14,
+                        color: SiamColors.grey,
+                      ),
+                    ),
+                    value: facultyText,
+                    isExpanded: true,
+                    items: facultyList.map(buildMenuItem).toList(),
+                    onChanged: (facultyText) => setState(
+                        () => this.facultyText = facultyText as String?),
+                  ),
                 ),
               ),
               SizedBox(
@@ -148,6 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 40,
                 margin: EdgeInsets.only(left: 30, right: 30),
                 child: TextFormField(
+                  controller: emailController,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       hintText: "อีเมลล์มหาวิทยาลัย",
@@ -171,6 +190,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 40,
                 margin: EdgeInsets.only(left: 30, right: 30),
                 child: TextFormField(
+                  controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
@@ -195,6 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 40,
                 margin: EdgeInsets.only(left: 30, right: 30),
                 child: TextFormField(
+                  controller: passwordConfirmedController,
                   obscureText: true,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
@@ -252,8 +273,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: 20,
                   ),
                   InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed("/home");
+                    onTap: () async {
+                      try {
+                        final credential = await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'weak-password') {
+                          print('The password provided is too weak.');
+                        } else if (e.code == 'email-already-in-use') {
+                          print('The account already exists for that email.');
+                        }
+                      } catch (e) {
+                        print(e);
+                      }
                     },
                     child: Container(
                       height: 50,
@@ -289,4 +324,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  DropdownMenuItem<String> buildMenuItem(String facultyList) =>
+      DropdownMenuItem(
+        value: facultyList,
+        child: Text(
+          facultyList,
+          style: TextStyle(fontFamily: 'Roboto', fontSize: 14),
+        ),
+      );
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,21 +18,21 @@ class _SettingScreenState extends State<SettingScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         toolbarHeight: 76,
-        title: Text("การตั้งค่า",
-        style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.bold
-                  ),
+        title: Text(
+          "การตั้งค่า",
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.bold),
         ),
         //backgroundColor: SiamColors.red,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[SiamColors.red, SiamColors.orange]),
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: <Color>[SiamColors.red, SiamColors.orange]),
           ),
         ),
       ),
@@ -86,8 +87,9 @@ class _SettingScreenState extends State<SettingScreen> {
             height: 20,
           ),
           InkWell(
-            onTap: () {
-              Navigator.of(context).pushNamed("/");
+            onTap: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.of(context).pushNamed("/login");
             },
             child: Container(
               height: 50,
@@ -130,7 +132,7 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
     );
   }
-  
+
   _selectedTab(int index) {
     setState(() {
       int _selectedIndex = index;
