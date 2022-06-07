@@ -1,6 +1,10 @@
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:path/path.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,25 +27,63 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
   final topicController = TextEditingController();
   final contentController = TextEditingController();
   final telController = TextEditingController();
+  String? imageURL;
+  DateTime? date;
+  String? reportDateTime;
 
-  File? image;
+  File? selectedImage;
+  UploadTask? uploadTask;
+  bool uploadStatus = false;
 
-  //imagepicker
+  File? _imageFile;
+
   Future pickImage(ImageSource source) async {
-    try{
-      final image = await ImagePicker().pickImage(source: source);
-    if(image == null) return ;
+    final pickedImage = await ImagePicker().pickImage(source: source);
 
-    final imageTemporary = File(image.path);
-    setState(() => this.image = imageTemporary);
-    } on PlatformException catch (e){
-      print(e);
+    setState(() {
+      _imageFile = File(pickedImage!.path);
+    });
+  }
+
+  Future uploadImageToFirebase(BuildContext context) async {
+    String fileName = basename(_imageFile!.path);
+    Reference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child('report_images/$fileName');
+    UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile!);
+    TaskSnapshot taskSnapshot = await uploadTask.whenComplete((){uploadStatus = true;});
+    if(uploadStatus=true){
+      taskSnapshot.ref.getDownloadURL().then(
+          (value) => imageURL = value,
+      );
+      setState(() {
+        imageURL;
+      });
     }
+    //String getimageURL = taskSnapshot.ref.getDownloadURL();
+    //imageURL = getimageURL;
+    
+    // setState(() async {
+    //   imageURL = await taskSnapshot.ref.getDownloadURL();
+    // });
   }
 
   // Firebase
   CollectionReference reportform =
       FirebaseFirestore.instance.collection("report_form");
+
+  final snackBar2 = const SnackBar(
+      behavior: SnackBarBehavior.floating,
+      content: Text('Error ! cannot upload image to server, please try again.'
+      ,style: TextStyle(color: Colors.white),
+      ),
+      // action: SnackBarAction(
+      //   label: 'Undo',
+      //   textColor: Colors.white,
+      //   onPressed: () {},
+      // ),
+      backgroundColor: SiamColors.red,
+      duration: Duration(seconds: 2),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +278,7 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                 ),
                 Container(
                   margin:
-                      EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50.0),
+                      EdgeInsets.only(left: 20.0, right: 20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -349,9 +391,21 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                     ],
                   ),
                 ),
+                if(_imageFile != null)
+                  Container(
+                    margin: EdgeInsets.only(top: 30.0),
+                    height: 300,
+                    width: 300,
+                    child: Center(
+                      child: Image.file(
+                        File(_imageFile!.path),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 Container(
                   margin:
-                      EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                      EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0,top: 30.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -426,12 +480,45 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                           alignment: Alignment.center,
                           child: InkWell(
                             onTap: () async {
-                              await reportform.add({
-                                "topic": topicController.text,
-                                "type": reportTypeText,
-                                "content": contentController.text,
-                                "tel": telController.text
-                              });
+                              date = DateTime.now();
+                              reportDateTime = date.toString();
+                              //upload image to firebase
+                              uploadImageToFirebase(context);
+                              //then
+                              if(uploadStatus=true && imageURL!=null){
+                                await reportform.add({
+                                "Topic": topicController.text,
+                                "Type": reportTypeText,
+                                "Content": contentController.text,
+                                "Tel": telController.text,
+                                "ImageURL": imageURL,
+                                "Report Date Text": reportDateTime,
+                                "Date Time": date
+                                });
+                                showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) {
+                                    Future.delayed(Duration(seconds: 2), () {
+                                      Navigator.of(context).pushNamed('/homebar');
+                                    });
+                                    return CupertinoAlertDialog(
+                                    content: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.check_circle_outline,
+                                          color: SiamColors.green,
+                                          size: 50,
+                                        ),
+                                        Text('ส่งเรื่องร้องเรียนสำเร็จ'),
+                                      ],
+                                    ),
+                                  );
+                                });
+                              }else{
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar2);
+                              }
+                              
                             },
                             child: Container(
                               height: 50,
