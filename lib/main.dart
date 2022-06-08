@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Siam U',
-      theme: ThemeData(fontFamily: "Roboto"),
+      theme: ThemeData(fontFamily: "Prompt"),
       initialRoute: "/",
       routes: {
         "/": (context) => const SplashScreen(),
