@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -21,6 +22,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordConfirmedController = TextEditingController();
+  String? uid;
+
+  CollectionReference users =
+      FirebaseFirestore.instance.collection("users");
+  
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  Future getUserUID() async{
+    final User? user = auth.currentUser;
+    
+    setState(() {
+      uid = user!.uid;
+    });
+  }
+
+  Future uploadUserData() async{
+
+    setState(() {
+      uid;
+    });
+
+    await users.add({
+      "Name": nameController.text,
+      "Surname": surnameController.text,
+      "Student ID": studentidController.text,
+      "Faculty": facultyText,
+      "email": emailController.text,
+      "password": passwordController.text,
+      "UID": uid
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +75,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Text(
                 "ลงทะเบียน",
                 style: TextStyle(
-                  fontFamily: "Roboto",
                   fontSize: 18,
                   color: SiamColors.red,
                 ),
@@ -54,7 +85,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Text(
                 "สร้างบัญชีผู้ใช้ ",
                 style: TextStyle(
-                  fontFamily: "Roboto",
                   fontSize: 18,
                   color: SiamColors.red,
                 ),
@@ -146,8 +176,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hint: Text(
                       'คณะ',
                       style: TextStyle(
-                        fontFamily: "Roboto",
-                        fontSize: 14,
+                        fontSize: 16,
                         color: SiamColors.grey,
                       ),
                     ),
@@ -280,6 +309,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           email: emailController.text,
                           password: passwordController.text,
                         );
+                        getUserUID();
+                        uploadUserData();
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
                           print('The password provided is too weak.');
@@ -289,6 +320,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       } catch (e) {
                         print(e);
                       }
+                      
                     },
                     child: Container(
                       height: 50,
