@@ -22,23 +22,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordConfirmedController = TextEditingController();
+
+  final _formKeyRegister = GlobalKey<FormState>();
+
   String? uid;
 
-  CollectionReference users =
-      FirebaseFirestore.instance.collection("users");
-  
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
+
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future getUserUID() async{
+  Future getUserUID() async {
     final User? user = auth.currentUser;
-    
+
     setState(() {
       uid = user!.uid;
     });
   }
 
-  Future uploadUserData() async{
-
+  Future uploadUserData() async {
     setState(() {
       uid;
     });
@@ -51,6 +52,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "email": emailController.text,
       "password": passwordController.text,
       "UID": uid
+    });
+    setState(() {
+      Navigator.of(context).pushNamed("/login");
     });
   }
 
@@ -68,60 +72,84 @@ class _RegisterScreenState extends State<RegisterScreen> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
-            child: Column(children: [
-              SizedBox(
-                height: 320,
-              ),
-              Text(
-                "ลงทะเบียน",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: SiamColors.red,
+            child: Form(
+              key: _formKeyRegister,
+              child: Column(children: [
+                SizedBox(
+                  height: 320,
                 ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                "สร้างบัญชีผู้ใช้ ",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: SiamColors.red,
+                Text(
+                  "ลงทะเบียน",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: SiamColors.red,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 40,
-                margin: EdgeInsets.only(left: 30, right: 30),
-                child: TextFormField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 10),
-                      hintText: "ชื่อ",
-                      enabledBorder: OutlineInputBorder(
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "สร้างบัญชีผู้ใช้ ",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: SiamColors.red,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 40,
+                  margin: EdgeInsets.only(left: 30, right: 30),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "* กรุณากรอกชื่อ.";
+                      }
+                      return null;
+                    },
+                    controller: nameController,
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 10),
+                        hintText: "ชื่อ",
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: SiamColors.red,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: SiamColors.red,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: SiamColors.red,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: SiamColors.red,
                           ),
-                          borderRadius: BorderRadius.circular(10)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: SiamColors.red,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      )),
+                          borderRadius: BorderRadius.circular(10),
+                        )),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 40,
-                margin: EdgeInsets.only(left: 30, right: 30),
-                child: TextFormField(
-                  controller: surnameController,
-                  decoration: InputDecoration(
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 40,
+                  margin: EdgeInsets.only(left: 30, right: 30),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "* กรุณากรอกนามสกุล.";
+                      }
+                      return null;
+                    },
+                    controller: surnameController,
+                    decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       hintText: "นามสกุล",
                       enabledBorder: OutlineInputBorder(
@@ -134,18 +162,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: SiamColors.red,
                         ),
                         borderRadius: BorderRadius.circular(10),
-                      )),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: SiamColors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: SiamColors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 40,
-                margin: EdgeInsets.only(left: 30, right: 30),
-                child: TextFormField(
-                  controller: studentidController,
-                  decoration: InputDecoration(
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 40,
+                  margin: EdgeInsets.only(left: 30, right: 30),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "* กรุณากรอกรหัสนักศึกษา.";
+                      }
+                      return null;
+                    },
+                    controller: studentidController,
+                    decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       hintText: "รหัสนักศึกษา",
                       enabledBorder: OutlineInputBorder(
@@ -158,47 +203,72 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: SiamColors.red,
                         ),
                         borderRadius: BorderRadius.circular(10),
-                      )),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 40,
-                margin: EdgeInsets.only(left: 30, right: 30),
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: SiamColors.red)),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                    hint: Text(
-                      'คณะ',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: SiamColors.grey,
                       ),
+                      errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: SiamColors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: SiamColors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
                     ),
-                    value: facultyText,
-                    isExpanded: true,
-                    items: facultyList.map(buildMenuItem).toList(),
-                    onChanged: (facultyText) => setState(
-                        () => this.facultyText = facultyText as String?),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 40,
-                margin: EdgeInsets.only(left: 30, right: 30),
-                child: TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 40,
+                  margin: EdgeInsets.only(left: 30, right: 30),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(color: SiamColors.red)),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField<String>(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "* กรุณาเลือกคณะ.";
+                        }
+                        return null;
+                      },
+                      hint: Text(
+                        'คณะ',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: SiamColors.grey,
+                        ),
+                      ),
+                      value: facultyText,
+                      isExpanded: true,
+                      items: facultyList.map(buildMenuItem).toList(),
+                      onChanged: (facultyText) => setState(
+                          () => this.facultyText = facultyText as String?),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 40,
+                  margin: EdgeInsets.only(left: 30, right: 30),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "* กรุณากรอกอีเมล.";
+                      } else if (!value.contains("@siam.edu")) {
+                        return "* กรุณาใส่ email@siam.edu";
+                      }
+                      return null;
+                    },
+                    controller: emailController,
+                    decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
-                      hintText: "อีเมลล์มหาวิทยาลัย",
+                      hintText: "อีเมลมหาวิทยาลัย",
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: SiamColors.red,
@@ -209,19 +279,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: SiamColors.red,
                         ),
                         borderRadius: BorderRadius.circular(10),
-                      )),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: SiamColors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: SiamColors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 40,
-                margin: EdgeInsets.only(left: 30, right: 30),
-                child: TextFormField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 40,
+                  margin: EdgeInsets.only(left: 30, right: 30),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "* กรุณากรอกรหัสผ่าน.";
+                      } else if (value.length < 6) {
+                        return "* กรุณากรอกรหัสผ่านมากกว่า 6 ตัวอักษร.";
+                      }
+                      return null;
+                    },
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       hintText: "รหัสผ่าน",
                       enabledBorder: OutlineInputBorder(
@@ -234,19 +323,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: SiamColors.red,
                         ),
                         borderRadius: BorderRadius.circular(10),
-                      )),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: SiamColors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: SiamColors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 40,
-                margin: EdgeInsets.only(left: 30, right: 30),
-                child: TextFormField(
-                  controller: passwordConfirmedController,
-                  obscureText: true,
-                  decoration: InputDecoration(
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 40,
+                  margin: EdgeInsets.only(left: 30, right: 30),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "* กรุณากรอกรหัสผ่านอีกครั้ง.";
+                      } else if (passwordController.text !=
+                          passwordConfirmedController.text) {
+                        return "* กรุณากรอกรหัสผ่านให้ตรงกัน.";
+                      }
+                      return null;
+                    },
+                    controller: passwordConfirmedController,
+                    obscureText: true,
+                    decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       hintText: "ยืนยันรหัสผ่าน",
                       enabledBorder: OutlineInputBorder(
@@ -259,98 +368,114 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: SiamColors.red,
                         ),
                         borderRadius: BorderRadius.circular(10),
-                      )),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: SiamColors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: SiamColors.red,
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed("/login");
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 130,
-                      decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 3,
-                              blurRadius: 7,
-                              offset:
-                                  Offset(0, 3), // changes position of shadow
-                            ),
-                          ],
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      child: Center(
-                          child: Text(
-                        "ยกเลิก",
-                        style: TextStyle(
-                          fontFamily: "Roboto",
-                          color: SiamColors.red,
-                          fontSize: 18,
-                        ),
-                      )),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed("/login");
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 130,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 3,
+                                blurRadius: 7,
+                                offset:
+                                    Offset(0, 3), // changes position of shadow
+                              ),
+                            ],
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        child: Center(
+                            child: Text(
+                          "ยกเลิก",
+                          style: TextStyle(
+                            fontFamily: "Roboto",
+                            color: SiamColors.red,
+                            fontSize: 18,
+                          ),
+                        )),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      try {
-                        final credential = await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                        getUserUID();
-                        uploadUserData();
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'weak-password') {
-                          print('The password provided is too weak.');
-                        } else if (e.code == 'email-already-in-use') {
-                          print('The account already exists for that email.');
+                    SizedBox(
+                      width: 20,
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        if (_formKeyRegister.currentState!.validate()) {
+                          try {
+                            final credential = await FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                              email: emailController.text,
+                              password: passwordConfirmedController.text,
+                            );
+                            getUserUID();
+                            uploadUserData();
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'weak-password') {
+                              print('The password provided is too weak.');
+                            } else if (e.code == 'email-already-in-use') {
+                              print(
+                                  'The account already exists for that email.');
+                            }
+                          } catch (e) {
+                            print(e);
+                          }
                         }
-                      } catch (e) {
-                        print(e);
-                      }
-                      
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 190,
-                      decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 3,
-                              blurRadius: 7,
-                              offset:
-                                  Offset(0, 3), // changes position of shadow
-                            ),
-                          ],
-                          color: SiamColors.red,
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      child: Center(
-                          child: Text(
-                        "สร้างบัญชี",
-                        style: TextStyle(
-                          fontFamily: "Roboto",
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      )),
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 190,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 3,
+                                blurRadius: 7,
+                                offset:
+                                    Offset(0, 3), // changes position of shadow
+                              ),
+                            ],
+                            color: SiamColors.red,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        child: Center(
+                            child: Text(
+                          "สร้างบัญชี",
+                          style: TextStyle(
+                            fontFamily: "Roboto",
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        )),
+                      ),
                     ),
-                  ),
-                ],
-              )
-            ]),
+                  ],
+                )
+              ]),
+            ),
           ),
         ),
       ),

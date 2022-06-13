@@ -15,6 +15,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailLoginController = TextEditingController();
   final passwordLoginController = TextEditingController();
+  final _formKeyEmail = GlobalKey<FormState>();
+  final _formKeyPassword = GlobalKey<FormState>();
 
   void _signInWithEmailAndPassword() async {
     try {
@@ -71,12 +73,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(left: 50, right: 50),
-              child: TextFormField(
-                controller: emailLoginController,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.person), labelText: "email@siam.edu"),
+            Form(
+              key: _formKeyEmail,
+              child: Container(
+                margin: EdgeInsets.only(left: 50, right: 50),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "* กรุณากรอกอีเมล.";
+                    } else if (!value.contains("@siam.edu")) {
+                      return "* กรุณาใส่ email@siam.edu";
+                    }
+                    return null;
+                  },
+                  controller: emailLoginController,
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.person), labelText: "email@siam.edu"),
+                ),
               ),
             ),
             SizedBox(
@@ -93,12 +106,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(left: 50, right: 50),
-              child: TextFormField(
-                controller: passwordLoginController,
-                decoration: InputDecoration(icon: Icon(Icons.key)),
-                obscureText: true,
+            Form(
+              key: _formKeyPassword,
+              child: Container(
+                margin: EdgeInsets.only(left: 50, right: 50),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "* กรุณาใส่รหัสผ่าน.";
+                    }
+                    return null;
+                  },
+                  controller: passwordLoginController,
+                  decoration: InputDecoration(icon: Icon(Icons.key)),
+                  obscureText: true,
+                ),
               ),
             ),
             SizedBox(
@@ -106,7 +128,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             InkWell(
               onTap: () async {
-                _signInWithEmailAndPassword();
+                if (_formKeyEmail.currentState!.validate() &&
+                    _formKeyPassword.currentState!.validate()) {
+                  _signInWithEmailAndPassword();
+                }
               },
               child: Container(
                 height: 50,
