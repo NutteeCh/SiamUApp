@@ -182,32 +182,37 @@ Widget buildpetcard(context, {required CardItem item}) => Container(
                     ))
               ],
             ),
-            Container(
-                width: 105,
-                height: 35,
-                decoration: BoxDecoration(
-                    color: SiamColors.red,
-                    borderRadius: BorderRadius.circular(50)),
-                child: Container(
-                  margin: EdgeInsets.only(left: 45, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "ดู",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed("/reportdetail");
+              },
+              child: Container(
+                  width: 105,
+                  height: 35,
+                  decoration: BoxDecoration(
+                      color: SiamColors.red,
+                      borderRadius: BorderRadius.circular(50)),
+                  child: Container(
+                    margin: EdgeInsets.only(left: 45, right: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "ดู",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.white,
-                        size: 15,
-                      )
-                    ],
-                  ),
-                ))
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                          size: 15,
+                        )
+                      ],
+                    ),
+                  )),
+            )
           ],
         )
       ]),

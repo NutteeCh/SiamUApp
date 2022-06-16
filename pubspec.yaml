@@ -76,6 +76,7 @@ flutter:
     - assets/images/bg2.png
     - assets/images/homebg1.jpg
     - assets/images/bottombg1.jpg
+    - assets/images/report_mock.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   fonts:

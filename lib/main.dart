@@ -5,6 +5,7 @@ import 'package:projectreportsiamu/screens/home_screen.dart';
 import 'package:projectreportsiamu/screens/login_screen.dart';
 import 'package:projectreportsiamu/screens/profile_screen.dart';
 import 'package:projectreportsiamu/screens/register_screen.dart';
+import 'package:projectreportsiamu/screens/report_detail_screen.dart';
 import 'package:projectreportsiamu/screens/report_form_screen.dart';
 import 'package:projectreportsiamu/screens/report_list_screen.dart';
 import 'package:projectreportsiamu/screens/service_screen.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         "/service": (context) => const ServiceScreen(),
         "/report": (context) => const ReportFormScreen(),
         "/reportlist": (context) => const ReportListScreen(),
+        "/reportdetail": (context) => const ReportDetailScreen(),
         "/setting": (context) => const SettingScreen(),
       },
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
