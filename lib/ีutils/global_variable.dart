@@ -7,6 +7,8 @@ class SiamColors {
   static const green = Color(0xFF15E111);
 }
 
+String userUID = "";
+
 final typeList = [
   'การเรียน',
   'ลงทะเบียนเรียน',

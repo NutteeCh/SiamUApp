@@ -18,6 +18,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKeyEmail = GlobalKey<FormState>();
   final _formKeyPassword = GlobalKey<FormState>();
 
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  void getUserUID() async {
+    final User? user = auth.currentUser;
+
+    setState(() {
+      userUID = user!.uid;
+    });
+  }
+
   void _signInWithEmailAndPassword() async {
     try {
       final user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -131,6 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (_formKeyEmail.currentState!.validate() &&
                     _formKeyPassword.currentState!.validate()) {
                   _signInWithEmailAndPassword();
+                  getUserUID();
                 }
               },
               child: Container(
