@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -28,6 +29,20 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  // void getUserInfo() async {
+  //   // QuerySnapshot doc = await FirebaseFirestore.instance
+  //   //     .collection('users')
+  //   //     .where('UID', isEqualTo: userUID)
+  //   //     .get();
+  //   // Map<String, dynamic> data = doc.data();
+  //   Stream<QuerySnapshot> snapshot = await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .where('UID', isEqualTo: userUID)
+  //       .snapshots();
+  //   userName = snapshot.data?.docs[0]['Name'];
+  //   print(doc);
+  // }
+
   Future _signInWithEmailAndPassword() async {
     try {
       final user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -39,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (user != null) {
         setState(() {
           getUserUID();
+          // getUserInfo();
           Navigator.of(context).pushNamed("/homebar");
         });
       } else {
