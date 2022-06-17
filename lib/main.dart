@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:projectreportsiamu/screens/edit_profile_screen.dart';
 import 'package:projectreportsiamu/screens/home_bottombar.dart';
 import 'package:projectreportsiamu/screens/home_screen.dart';
 import 'package:projectreportsiamu/screens/login_screen.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         "/homebar": (context) => const HomeBottomBar(),
         "/home": (context) => const HomeScreen(),
         "/profile": (context) => const ProfileScreen(),
+        "/editprofile": (context) => const EditProfileScreen(),
         "/service": (context) => const ServiceScreen(),
         "/report": (context) => const ReportFormScreen(),
         "/reportlist": (context) => const ReportListScreen(),

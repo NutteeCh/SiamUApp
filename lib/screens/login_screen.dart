@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void _signInWithEmailAndPassword() async {
+  Future _signInWithEmailAndPassword() async {
     try {
       final user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailLoginController.text,
@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (user != null) {
         setState(() {
+          getUserUID();
           Navigator.of(context).pushNamed("/homebar");
         });
       } else {
@@ -141,7 +142,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (_formKeyEmail.currentState!.validate() &&
                     _formKeyPassword.currentState!.validate()) {
                   _signInWithEmailAndPassword();
-                  getUserUID();
                 }
               },
               child: Container(

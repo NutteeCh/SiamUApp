@@ -8,6 +8,10 @@ class SiamColors {
 }
 
 String userUID = "";
+String userName = "";
+String userSurname = "";
+String userFaculty = "";
+String userEmail = "";
 
 final typeList = [
   'การเรียน',

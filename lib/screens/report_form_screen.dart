@@ -518,7 +518,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                               }else{
                                 ScaffoldMessenger.of(context).showSnackBar(snackBar2);
                               }
-                              
                             },
                             child: Container(
                               height: 50,

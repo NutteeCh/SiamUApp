@@ -229,6 +229,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       border: Border.all(color: SiamColors.red)),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration.collapsed(hintText: ''),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "* กรุณาเลือกคณะ.";
