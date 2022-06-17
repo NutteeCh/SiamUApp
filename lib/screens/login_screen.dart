@@ -79,7 +79,6 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Text(
                 "อีเมลล์มหาวิทยาลัย",
                 style: TextStyle(
-                  fontFamily: "Roboto",
                   color: SiamColors.red,
                 ),
               ),
@@ -112,7 +111,6 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Text(
                 "รหัสผ่าน",
                 style: TextStyle(
-                  fontFamily: "Roboto",
                   color: SiamColors.red,
                 ),
               ),
@@ -157,7 +155,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                   "เข้าสู่ระบบ",
                   style: TextStyle(
-                    fontFamily: "Roboto",
                     color: Colors.white,
                     fontSize: 18,
                   ),
@@ -170,7 +167,6 @@ class _LoginScreenState extends State<LoginScreen> {
             Text(
               "หรือ",
               style: TextStyle(
-                fontFamily: "Roboto",
                 fontSize: 12,
               ),
             ),
@@ -180,7 +176,6 @@ class _LoginScreenState extends State<LoginScreen> {
             Text(
               "ยังไม่มีบัญชีผู้ใช้ ?",
               style: TextStyle(
-                fontFamily: "Roboto",
                 fontSize: 12,
               ),
             ),
@@ -193,7 +188,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   "ลงทะเบียนเป็นส่วนหนึ่งกับเราที่",
                   style: TextStyle(
-                    fontFamily: "Roboto",
                     fontSize: 12,
                   ),
                 ),
@@ -207,7 +201,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     "มหาวิทยาลัยสยาม",
                     style: TextStyle(
-                      fontFamily: "Roboto",
                       fontSize: 12,
                       color: SiamColors.red,
                     ),

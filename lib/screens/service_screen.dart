@@ -14,7 +14,6 @@ class ServiceScreen extends StatefulWidget {
 }
 
 class _ServiceScreenState extends State<ServiceScreen> {
-
   final URLLaunch ulaunch = new URLLaunch();
   @override
   Widget build(BuildContext context) {
@@ -22,21 +21,18 @@ class _ServiceScreenState extends State<ServiceScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         toolbarHeight: 76,
-        title: Text("หน่วยงานบริการ",
-        style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.bold
-                  ),
+        title: Text(
+          "หน่วยงานบริการ",
+          style: TextStyle(
+              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
         ),
         //backgroundColor: SiamColors.red,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[SiamColors.red, SiamColors.orange]),
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: <Color>[SiamColors.red, SiamColors.orange]),
           ),
         ),
       ),
@@ -49,7 +45,6 @@ class _ServiceScreenState extends State<ServiceScreen> {
               child: Text(
                 "ร้องเรียนปัญหา",
                 style: TextStyle(
-                  fontFamily: "Roboto",
                   fontSize: 18,
                   color: Colors.black,
                 ),
@@ -91,12 +86,12 @@ class _ServiceScreenState extends State<ServiceScreen> {
                             )),
                           ),
                         ),
-                        Text("ร้องเรียนปัญหา",
-                        style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 10,
-                          color: Colors.black,
-                        ),
+                        Text(
+                          "ร้องเรียนปัญหา",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     ),
@@ -104,7 +99,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).pushNamed("/");
+                            Navigator.of(context).pushNamed("/reportlist");
                           },
                           child: Container(
                             margin: EdgeInsets.only(bottom: 5.0),
@@ -131,12 +126,12 @@ class _ServiceScreenState extends State<ServiceScreen> {
                             )),
                           ),
                         ),
-                        Text("รายการที่ร้องเรียน",
-                        style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 10,
-                          color: Colors.black,
-                        ),
+                        Text(
+                          "รายการที่ร้องเรียน",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     ),
@@ -156,7 +151,6 @@ class _ServiceScreenState extends State<ServiceScreen> {
               child: Text(
                 "ช่องทางการติดต่อ",
                 style: TextStyle(
-                  fontFamily: "Roboto",
                   fontSize: 18,
                   color: Colors.black,
                 ),
@@ -198,12 +192,12 @@ class _ServiceScreenState extends State<ServiceScreen> {
                             )),
                           ),
                         ),
-                        Text("ติดต่อเจ้าหน้าที่",
-                        style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 10,
-                          color: Colors.black,
-                        ),
+                        Text(
+                          "ติดต่อเจ้าหน้าที่",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     ),
@@ -232,19 +226,18 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                     BorderRadius.all(Radius.circular(10))),
                             child: Center(
                                 child: Image.asset(
-                                  'assets/images/logo.png',
-                                  height: 50,
-                                  width: 50,
-                                )
-                            ),
+                              'assets/images/logo.png',
+                              height: 50,
+                              width: 50,
+                            )),
                           ),
                         ),
-                        Text("เว็บไซต์ Siam.edu",
-                        style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 10,
-                          color: Colors.black,
-                        ),
+                        Text(
+                          "เว็บไซต์ Siam.edu",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     ),
@@ -279,12 +272,12 @@ class _ServiceScreenState extends State<ServiceScreen> {
                             )),
                           ),
                         ),
-                        Text("Siam University",
-                        style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 10,
-                          color: Colors.black,
-                        ),
+                        Text(
+                          "Siam University",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     ),

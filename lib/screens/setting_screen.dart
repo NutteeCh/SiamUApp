@@ -21,10 +21,7 @@ class _SettingScreenState extends State<SettingScreen> {
         title: Text(
           "การตั้งค่า",
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
         ),
         //backgroundColor: SiamColors.red,
         flexibleSpace: Container(
@@ -68,7 +65,6 @@ class _SettingScreenState extends State<SettingScreen> {
                   Text(
                     "เกี่ยวกับเรา",
                     style: TextStyle(
-                      fontFamily: "Roboto",
                       color: Color(0xFF616161),
                       fontSize: 18,
                     ),
@@ -113,7 +109,6 @@ class _SettingScreenState extends State<SettingScreen> {
                   Text(
                     "ออกจากระบบ",
                     style: TextStyle(
-                      fontFamily: "Roboto",
                       color: SiamColors.red,
                       fontSize: 18,
                     ),

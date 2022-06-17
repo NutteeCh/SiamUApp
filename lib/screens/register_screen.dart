@@ -413,7 +413,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Text(
                           "ยกเลิก",
                           style: TextStyle(
-                            fontFamily: "Roboto",
                             color: SiamColors.red,
                             fontSize: 18,
                           ),
@@ -466,7 +465,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Text(
                           "สร้างบัญชี",
                           style: TextStyle(
-                            fontFamily: "Roboto",
                             color: Colors.white,
                             fontSize: 18,
                           ),
@@ -488,7 +486,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         value: facultyList,
         child: Text(
           facultyList,
-          style: TextStyle(fontFamily: 'Roboto', fontSize: 14),
+          style: TextStyle(fontSize: 14),
         ),
       );
 }

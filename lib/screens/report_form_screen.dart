@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +20,6 @@ class ReportFormScreen extends StatefulWidget {
 }
 
 class _ReportFormScreenState extends State<ReportFormScreen> {
-
   String? reportTypeText;
 
   final topicController = TextEditingController();
@@ -50,18 +48,20 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
     Reference firebaseStorageRef =
         FirebaseStorage.instance.ref().child('report_images/$fileName');
     UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile!);
-    TaskSnapshot taskSnapshot = await uploadTask.whenComplete((){uploadStatus = true;});
-    if(uploadStatus=true){
+    TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {
+      uploadStatus = true;
+    });
+    if (uploadStatus = true) {
       taskSnapshot.ref.getDownloadURL().then(
-          (value) => imageURL = value,
-      );
+            (value) => imageURL = value,
+          );
       setState(() {
         imageURL;
       });
     }
     //String getimageURL = taskSnapshot.ref.getDownloadURL();
     //imageURL = getimageURL;
-    
+
     // setState(() async {
     //   imageURL = await taskSnapshot.ref.getDownloadURL();
     // });
@@ -72,17 +72,18 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
       FirebaseFirestore.instance.collection("report_form");
 
   final snackBar2 = const SnackBar(
-      behavior: SnackBarBehavior.floating,
-      content: Text('Error ! cannot upload image to server, please try again.'
-      ,style: TextStyle(color: Colors.white),
-      ),
-      // action: SnackBarAction(
-      //   label: 'Undo',
-      //   textColor: Colors.white,
-      //   onPressed: () {},
-      // ),
-      backgroundColor: SiamColors.red,
-      duration: Duration(seconds: 2),
+    behavior: SnackBarBehavior.floating,
+    content: Text(
+      'Error ! cannot upload image to server, please try again.',
+      style: TextStyle(color: Colors.white),
+    ),
+    // action: SnackBarAction(
+    //   label: 'Undo',
+    //   textColor: Colors.white,
+    //   onPressed: () {},
+    // ),
+    backgroundColor: SiamColors.red,
+    duration: Duration(seconds: 2),
   );
 
   @override
@@ -92,7 +93,7 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
       //   automaticallyImplyLeading: false,
       //   title: Text("ร้องเรียนปัญหา",
       //     style: TextStyle(
-      //       fontFamily: 'Roboto',
+
       //       fontWeight: FontWeight.bold,
       //       //fontSize: 18
       //     ),
@@ -118,7 +119,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
-                    fontFamily: 'Roboto',
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -140,7 +140,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                   child: Text(
                     "กรอกข้อมูลรายละเอียด",
                     style: TextStyle(
-                      fontFamily: "Roboto",
                       fontSize: 18,
                       fontWeight: FontWeight.w100,
                       color: Colors.black,
@@ -159,7 +158,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                         contentPadding: EdgeInsets.only(left: 10),
                         hintText: "หัวข้อเรื่อง",
                         hintStyle: TextStyle(
-                          fontFamily: "Roboto",
                           fontSize: 14,
                           color: SiamColors.grey,
                         ),
@@ -191,7 +189,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                       hint: Text(
                         'ประเภทของปัญหา',
                         style: TextStyle(
-                          fontFamily: "Roboto",
                           fontSize: 14,
                           color: SiamColors.grey,
                         ),
@@ -217,7 +214,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                         contentPadding: EdgeInsets.only(left: 10, top: 20.0),
                         hintText: "เนื้อหาที่ต้องการร้องเรียน...",
                         hintStyle: TextStyle(
-                          fontFamily: "Roboto",
                           fontSize: 14,
                           color: SiamColors.grey,
                         ),
@@ -246,7 +242,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                         contentPadding: EdgeInsets.only(left: 10),
                         hintText: "เบอร์โทรติดต่อกลับ",
                         hintStyle: TextStyle(
-                          fontFamily: "Roboto",
                           fontSize: 14,
                           color: SiamColors.grey,
                         ),
@@ -269,7 +264,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                   child: Text(
                     "แนบรูปภาพเพิ่มเติม",
                     style: TextStyle(
-                      fontFamily: "Roboto",
                       fontSize: 18,
                       fontWeight: FontWeight.w100,
                       color: Colors.black,
@@ -277,8 +271,7 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                   ),
                 ),
                 Container(
-                  margin:
-                      EdgeInsets.only(left: 20.0, right: 20.0),
+                  margin: EdgeInsets.only(left: 20.0, right: 20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -318,7 +311,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                                   Text(
                                     "ถ่ายรูปภาพ",
                                     style: TextStyle(
-                                      fontFamily: "Roboto",
                                       color: Colors.black,
                                       fontSize: 12,
                                     ),
@@ -334,7 +326,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                         child: const Text(
                           'หรือ',
                           style: TextStyle(
-                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w100,
                               fontSize: 14,
                               color: SiamColors.grey),
@@ -377,7 +368,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                                     "เลือกจากแกลลอรี่",
                                     overflow: TextOverflow.fade,
                                     style: TextStyle(
-                                      fontFamily: "Roboto",
                                       color: Colors.black,
                                       fontSize: 12,
                                     ),
@@ -391,7 +381,7 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                     ],
                   ),
                 ),
-                if(_imageFile != null)
+                if (_imageFile != null)
                   Container(
                     margin: EdgeInsets.only(top: 30.0),
                     height: 300,
@@ -404,8 +394,8 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                     ),
                   ),
                 Container(
-                  margin:
-                      EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0,top: 30.0),
+                  margin: EdgeInsets.only(
+                      left: 20.0, right: 20.0, bottom: 20.0, top: 30.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -452,7 +442,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                                   Text(
                                     "ยกเลิก",
                                     style: TextStyle(
-                                      fontFamily: "Roboto",
                                       color: Colors.white,
                                       fontSize: 16,
                                     ),
@@ -468,7 +457,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                         child: const Text(
                           'หรือ',
                           style: TextStyle(
-                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w100,
                               fontSize: 14,
                               color: SiamColors.grey),
@@ -483,40 +471,42 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                               date = DateTime.now();
                               reportDateTime = date.toString();
                               //upload image to firebase
-                              uploadImageToFirebase(context);
+                              await uploadImageToFirebase(context);
                               //then
-                              if(uploadStatus=true && imageURL!=null){
-                                await reportform.add({
-                                "Topic": topicController.text,
-                                "Type": reportTypeText,
-                                "Content": contentController.text,
-                                "Tel": telController.text,
-                                "ImageURL": imageURL,
-                                "Report Date Text": reportDateTime,
-                                "Date Time": date
+                              if (uploadStatus = true && imageURL != null) {
+                                reportform.add({
+                                  "Topic": topicController.text,
+                                  "Type": reportTypeText,
+                                  "Content": contentController.text,
+                                  "Tel": telController.text,
+                                  "ImageURL": imageURL,
+                                  "Report Date Text": reportDateTime,
+                                  "Date Time": date
                                 });
                                 showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (context) {
-                                    Future.delayed(Duration(seconds: 2), () {
-                                      Navigator.of(context).pushNamed('/homebar');
-                                    });
-                                    return CupertinoAlertDialog(
-                                    content: Column(
-                                      children: [
-                                        Icon(
-                                          Icons.check_circle_outline,
-                                          color: SiamColors.green,
-                                          size: 50,
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) {
+                                      Future.delayed(Duration(seconds: 2), () {
+                                        Navigator.of(context)
+                                            .pushNamed('/homebar');
+                                      });
+                                      return CupertinoAlertDialog(
+                                        content: Column(
+                                          children: [
+                                            Icon(
+                                              Icons.check_circle_outline,
+                                              color: SiamColors.green,
+                                              size: 50,
+                                            ),
+                                            Text('ส่งเรื่องร้องเรียนสำเร็จ'),
+                                          ],
                                         ),
-                                        Text('ส่งเรื่องร้องเรียนสำเร็จ'),
-                                      ],
-                                    ),
-                                  );
-                                });
-                              }else{
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar2);
+                                      );
+                                    });
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar2);
                               }
                             },
                             child: Container(
@@ -548,7 +538,6 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                                   Text(
                                     "ส่งเรื่องร้องเรียน",
                                     style: TextStyle(
-                                      fontFamily: "Roboto",
                                       color: Colors.white,
                                       fontSize: 16,
                                     ),
@@ -574,7 +563,7 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
         value: typeList,
         child: Text(
           typeList,
-          style: TextStyle(fontFamily: 'Roboto', fontSize: 14),
+          style: TextStyle(fontSize: 14),
         ),
       );
 }

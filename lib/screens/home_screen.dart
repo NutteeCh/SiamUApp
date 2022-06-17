@@ -145,7 +145,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     "หน่วยงานบริการ",
                     style: TextStyle(
-                      fontFamily: "Roboto",
                       fontSize: 18,
                       color: Colors.black,
                     ),
@@ -193,7 +192,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               "ร้องเรียนปัญหา",
                               style: TextStyle(
-                                fontFamily: "Roboto",
                                 fontSize: 10,
                                 color: Colors.black,
                               ),
@@ -204,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).pushNamed("/");
+                                Navigator.of(context).pushNamed("/reportlist");
                               },
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 5.0),
@@ -234,7 +232,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               "รายการที่ร้องเรียน",
                               style: TextStyle(
-                                fontFamily: "Roboto",
                                 fontSize: 10,
                                 color: Colors.black,
                               ),
@@ -275,7 +272,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               "ติดต่อเจ้าหน้าที่",
                               style: TextStyle(
-                                fontFamily: "Roboto",
                                 fontSize: 10,
                                 color: Colors.black,
                               ),
