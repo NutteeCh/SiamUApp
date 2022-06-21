@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
@@ -25,6 +26,8 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
   final topicController = TextEditingController();
   final contentController = TextEditingController();
   final telController = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser!;
+
   String? imageURL;
   DateTime? date;
   String? reportDateTime;
@@ -67,7 +70,21 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
     // });
   }
 
+  var Surname = '';
+  var Name = '';
   // Firebase
+  Future<void> getUser() async {
+    var querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('UID', isEqualTo: userUID)
+        .get();
+    for (var queryDocumentSnapshot in querySnapshot.docs) {
+      Map<String, dynamic> data = queryDocumentSnapshot.data();
+      Surname = data['Surname'];
+      Name = data['Name'];
+    }
+  }
+
   CollectionReference reportform =
       FirebaseFirestore.instance.collection("report_form");
 
@@ -88,6 +105,7 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getUser();
     return Scaffold(
       // appBar: AppBar(
       //   automaticallyImplyLeading: false,
@@ -480,8 +498,12 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                                   "Content": contentController.text,
                                   "Tel": telController.text,
                                   "ImageURL": imageURL,
-                                  "Report Date Text": reportDateTime,
-                                  "Date Time": date
+                                  "Report_Date_Text": reportDateTime,
+                                  "Date_Time": date,
+                                  "Status": "ได้รับคำร้องเรียนแล้ว",
+                                  "UID": userUID,
+                                  "Name": Name,
+                                  "Surname": Surname,
                                 });
                                 showDialog(
                                     barrierDismissible: false,

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:intl/intl.dart';
 
 import '../ีutils/global_variable.dart';
 
@@ -14,6 +16,7 @@ class ReportDetailScreen extends StatefulWidget {
 class _ReportDetailScreenState extends State<ReportDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       appBar: AppBar(
         // automaticallyImplyLeading: false,
@@ -37,170 +40,205 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.all(20),
+        child: Expanded(
           child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "หัวข้อเรื่อง",
-                  style: TextStyle(fontSize: 12, color: SiamColors.grey),
-                ),
-                Text("สถานะ",
-                    style: TextStyle(fontSize: 12, color: SiamColors.grey))
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("111111",
-                    style: TextStyle(
-                      fontSize: 14,
-                    )),
-                Text("22222",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ))
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "ประเภท",
-                  style: TextStyle(fontSize: 12, color: SiamColors.grey),
-                ),
-                Text("วันที่ส่งคำร้อง",
-                    style: TextStyle(fontSize: 12, color: SiamColors.grey))
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("333333",
-                    style: TextStyle(
-                      fontSize: 14,
-                    )),
-                Text("01/01/2000",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ))
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "ผู้ร้องเรียน",
-                  style: TextStyle(fontSize: 12, color: SiamColors.grey),
-                ),
-                Text("เบอร์โทรติดต่อกลับ",
-                    style: TextStyle(fontSize: 12, color: SiamColors.grey))
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("นายอนรรฆภูมิ ศรีอำไพ",
-                    style: TextStyle(
-                      fontSize: 14,
-                    )),
-                Text("066532693",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ))
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "เนื้อหา",
-                  style: TextStyle(fontSize: 12, color: SiamColors.grey),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Text(
-                      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxzzzzzzzzzzzzzzzzzzzzzsxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-                      style: TextStyle(
-                        fontSize: 14,
-                      )),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "รูปภาพเพิ่มเติม",
-                  style: TextStyle(fontSize: 12, color: SiamColors.grey),
-                ),
-              ],
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-              width: 348,
-              height: 261,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  image: DecorationImage(
-                      image: AssetImage(
-                        "assets/images/report_mock.jpg",
-                      ),
-                      fit: BoxFit.fill)),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            InkWell(
-              // onTap: () {
-              //   Navigator.of(context).pushNamed("/reportdetail");
-              // },
-              child: Container(
-                  margin: EdgeInsets.only(left: 200),
-                  width: 150,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: SiamColors.red,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Container(
-                    margin: EdgeInsets.only(left: 50, right: 50),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                          size: 20,
+            StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('report_form')
+                    .doc(arguments['docID'])
+                    .snapshots(),
+                builder: (context, snapshots) {
+                  var widget = Container();
+                  if (snapshots.data == null) {
+                    return widget;
+                  } else {
+                    Timestamp t = snapshots.data?['Date_Time'];
+                    DateTime dt = t.toDate();
+                    var newFormat = DateFormat('yyyy-MM-dd');
+                    var date = newFormat.format(dt);
+                    return Container(
+                      margin: EdgeInsets.all(20),
+                      child: Column(children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "หัวข้อเรื่อง",
+                              style: TextStyle(
+                                  fontSize: 12, color: SiamColors.grey),
+                            ),
+                            Text("สถานะ",
+                                style: TextStyle(
+                                    fontSize: 12, color: SiamColors.grey))
+                          ],
                         ),
-                        Text(
-                          "ลบ",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(snapshots.data?['Topic'],
+                                style: TextStyle(
+                                  fontSize: 14,
+                                )),
+                            Text(snapshots.data!['Status'],
+                                style: TextStyle(
+                                  fontSize: 14,
+                                ))
+                          ],
                         ),
-                      ],
-                    ),
-                  )),
-            )
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "ประเภท",
+                              style: TextStyle(
+                                  fontSize: 12, color: SiamColors.grey),
+                            ),
+                            Text("วันที่ส่งคำร้อง",
+                                style: TextStyle(
+                                    fontSize: 12, color: SiamColors.grey))
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(snapshots.data?['Type'],
+                                style: TextStyle(
+                                  fontSize: 14,
+                                )),
+                            Text(date,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                ))
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "ผู้ร้องเรียน",
+                              style: TextStyle(
+                                  fontSize: 12, color: SiamColors.grey),
+                            ),
+                            Text("เบอร์โทรติดต่อกลับ",
+                                style: TextStyle(
+                                    fontSize: 12, color: SiamColors.grey))
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                snapshots.data?['Name'] +
+                                    ' ' +
+                                    snapshots.data?['Name'],
+                                style: TextStyle(
+                                  fontSize: 14,
+                                )),
+                            Text(snapshots.data?['Tel'],
+                                style: TextStyle(
+                                  fontSize: 14,
+                                ))
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "เนื้อหา",
+                              style: TextStyle(
+                                  fontSize: 12, color: SiamColors.grey),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text(snapshots.data?['Content'],
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                  )),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "รูปภาพเพิ่มเติม",
+                              style: TextStyle(
+                                  fontSize: 12, color: SiamColors.grey),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(
+                              top: 20.0, left: 20.0, right: 20.0),
+                          width: 348,
+                          height: 261,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              image: DecorationImage(
+                                  image:
+                                      NetworkImage(snapshots.data?['ImageURL']),
+
+                                  // image: AssetImage(
+                                  //   "assets/images/report_mock.jpg",
+                                  // ),
+                                  fit: BoxFit.fill)),
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        InkWell(
+                          // onTap: () {
+                          //   Navigator.of(context).pushNamed("/reportdetail");
+                          // },
+                          child: Container(
+                              margin: EdgeInsets.only(left: 200),
+                              width: 150,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color: SiamColors.red,
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: Container(
+                                margin: EdgeInsets.only(left: 50, right: 50),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                    Text(
+                                      "ลบ",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        )
+                      ]),
+                    );
+                  }
+                })
           ]),
         ),
       ),

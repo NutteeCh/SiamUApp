@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:projectreportsiamu/screens/check_state.dart';
 import 'package:projectreportsiamu/screens/edit_profile_screen.dart';
 import 'package:projectreportsiamu/screens/home_bottombar.dart';
 import 'package:projectreportsiamu/screens/home_screen.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         "/reportlist": (context) => const ReportListScreen(),
         "/reportdetail": (context) => const ReportDetailScreen(),
         "/setting": (context) => const SettingScreen(),
+        "/check": (context) => CheckState(),
       },
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
