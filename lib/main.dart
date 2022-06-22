@@ -8,6 +8,7 @@ import 'package:projectreportsiamu/screens/login_screen.dart';
 import 'package:projectreportsiamu/screens/profile_screen.dart';
 import 'package:projectreportsiamu/screens/register_screen.dart';
 import 'package:projectreportsiamu/screens/report_detail_screen.dart';
+import 'package:projectreportsiamu/screens/report_detail_screen_admin.dart';
 import 'package:projectreportsiamu/screens/report_form_screen.dart';
 import 'package:projectreportsiamu/screens/report_list_screen.dart';
 import 'package:projectreportsiamu/screens/service_screen.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         "/report": (context) => const ReportFormScreen(),
         "/reportlist": (context) => const ReportListScreen(),
         "/reportdetail": (context) => const ReportDetailScreen(),
+        "/reportdetailadmin": (context) => const ReportDetailAdminScreen(),
         "/setting": (context) => const SettingScreen(),
         "/check": (context) => CheckState(),
       },

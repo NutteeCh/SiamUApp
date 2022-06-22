@@ -120,7 +120,7 @@ class _ReportListScreenState extends State<ReportListScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                "${snapshot.data?.docs[index]['Name']}   ${snapshot.data?.docs[index]['Surname']}",
+                                "${snapshot.data?.docs[index]['Name']}  ${snapshot.data?.docs[index]['Surname']}",
                                 style: TextStyle(
                                   fontSize: 14,
                                 )),

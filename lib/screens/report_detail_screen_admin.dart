@@ -6,14 +6,16 @@ import 'package:intl/intl.dart';
 
 import '../ีutils/global_variable.dart';
 
-class ReportDetailScreen extends StatefulWidget {
-  const ReportDetailScreen({Key? key}) : super(key: key);
+class ReportDetailAdminScreen extends StatefulWidget {
+  const ReportDetailAdminScreen({Key? key}) : super(key: key);
 
   @override
-  State<ReportDetailScreen> createState() => _ReportDetailScreenState();
+  State<ReportDetailAdminScreen> createState() =>
+      _ReportDetailAdminScreenState();
 }
 
-class _ReportDetailScreenState extends State<ReportDetailScreen> {
+class _ReportDetailAdminScreenState extends State<ReportDetailAdminScreen> {
+  String? statusText;
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
@@ -135,8 +137,8 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                           children: [
                             Text(
                                 snapshots.data?['Name'] +
-                                    '  ' +
-                                    snapshots.data?['Surname'],
+                                    ' ' +
+                                    snapshots.data?['Name'],
                                 style: TextStyle(
                                   fontSize: 14,
                                 )),
@@ -200,40 +202,91 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                                   fit: BoxFit.fill)),
                         ),
                         SizedBox(
-                          height: 50,
+                          height: 30,
                         ),
-                        InkWell(
-                          // onTap: () {
-                          //   Navigator.of(context).pushNamed("/reportdetail");
-                          // },
-                          child: Container(
-                              margin: EdgeInsets.only(left: 200),
-                              width: 150,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  color: SiamColors.red,
-                                  borderRadius: BorderRadius.circular(50)),
-                              child: Container(
-                                margin: EdgeInsets.only(left: 50, right: 50),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Icon(
-                                      Icons.delete,
-                                      color: Colors.white,
-                                      size: 20,
-                                    ),
-                                    Text(
-                                      "ลบ",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "แก้ไขสถานะ",
+                              style: TextStyle(
+                                  fontSize: 12, color: SiamColors.grey),
+                            ),
+                            Container(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 40,
+                                    width: 170,
+                                    margin: EdgeInsets.only(right: 5),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        border:
+                                            Border.all(color: Colors.black)),
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+                                        hint: Text(
+                                          'สถานะ',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: SiamColors.grey,
+                                          ),
+                                        ),
+                                        value: statusText,
+                                        isExpanded: true,
+                                        items: statusReport
+                                            .map(buildMenuItem)
+                                            .toList(),
+                                        onChanged: (statusText) => setState(
+                                            () => this.statusText =
+                                                statusText as String?),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              )),
+                                  ),
+                                  Container(
+                                      child: InkWell(
+                                    // onTap: () {
+                                    //   Navigator.of(context).pushNamed("/reportdetail");
+                                    // },
+                                    child: Container(
+                                        margin: EdgeInsets.only(left: 30),
+                                        width: 160,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                            color: SiamColors.red,
+                                            borderRadius:
+                                                BorderRadius.circular(50)),
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                              left: 15, right: 15),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Icon(
+                                                Icons.save,
+                                                color: Colors.white,
+                                                size: 20,
+                                              ),
+                                              Text(
+                                                "บันทึกการแก้ไข",
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                  ))
+                                ],
+                              ),
+                            ),
+                          ],
                         )
                       ]),
                     );
@@ -244,4 +297,13 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
       ),
     );
   }
+
+  DropdownMenuItem<String> buildMenuItem(String statusReport) =>
+      DropdownMenuItem(
+        value: statusReport,
+        child: Text(
+          statusReport,
+          style: TextStyle(fontSize: 14),
+        ),
+      );
 }
