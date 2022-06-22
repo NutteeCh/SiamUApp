@@ -51,6 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "Faculty": facultyText,
       "email": emailController.text,
       "password": passwordController.text,
+      "Role": "user",
       "UID": uid
     });
     setState(() {

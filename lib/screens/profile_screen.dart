@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -11,6 +12,8 @@ class ProfileScreen extends StatefulWidget {
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
+
+final user = FirebaseAuth.instance.currentUser!;
 
 class _ProfileScreenState extends State<ProfileScreen> {
   //final Stream<QuerySnapshot> users = FirebaseFirestore.instance.collection('users').doc(snapshotData.data?.doc[index]["UID"]).where('UID', isEqualTo: userUID).snapshots();
@@ -57,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('users')
-                    .where('UID', isEqualTo: userUID)
+                    .where('UID', isEqualTo: user.uid)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -87,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         alignment: Alignment.topLeft,
                         margin: EdgeInsets.only(left: 20, top: 20),
                         child: Text(
-                          "${snapshot.data?.docs[0]['Name']}  ${snapshot.data?.docs[0]['Surname']}",
+                          "${snapshot.data!.docs[0]['Name']}  ${snapshot.data!.docs[0]['Surname']}",
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,

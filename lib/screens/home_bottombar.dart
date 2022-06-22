@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:projectreportsiamu/%E0%B8%B5utils/global_variable.dart';
 import 'package:projectreportsiamu/screens/home_screen.dart';
 import 'package:projectreportsiamu/screens/profile_screen.dart';
+import 'package:projectreportsiamu/screens/report_list_admin_screen.dart';
 import 'package:projectreportsiamu/screens/report_list_screen.dart';
 import 'package:projectreportsiamu/screens/service_screen.dart';
 import 'package:projectreportsiamu/screens/setting_screen.dart';
@@ -24,12 +27,26 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
     const ReportListScreen(),
     const SettingScreen()
   ];
+  final user = FirebaseAuth.instance.currentUser!;
+  var Role = '';
+  // Firebase
+  Future<void> getRole() async {
+    var querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('UID', isEqualTo: user.uid)
+        .get();
+    for (var queryDocumentSnapshot in querySnapshot.docs) {
+      Map<String, dynamic> data = queryDocumentSnapshot.data();
+      Role = data['Role'];
+    }
+  }
 
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const HomeScreen();
 
   @override
   Widget build(BuildContext context) {
+    getRole();
     return Scaffold(
       body: PageStorage(
         child: currentScreen,
@@ -73,7 +90,9 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                 },
                 child: Center(
                   child: Icon(
-                    currentTab == 0 ? Icons.person : Icons.person_outline_outlined,
+                    currentTab == 0
+                        ? Icons.person
+                        : Icons.person_outline_outlined,
                     color: currentTab == 0 ? SiamColors.red : SiamColors.grey,
                   ),
                 ),
@@ -109,10 +128,17 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
               MaterialButton(
                 minWidth: 40,
                 onPressed: () {
-                  setState(() {
-                    currentScreen = const ReportListScreen();
-                    currentTab = 3;
-                  });
+                  if (Role == 'admin') {
+                    setState(() {
+                      currentScreen = const ReportListAdminScreen();
+                      currentTab = 3;
+                    });
+                  } else {
+                    setState(() {
+                      currentScreen = const ReportListScreen();
+                      currentTab = 3;
+                    });
+                  }
                 },
                 child: Center(
                   child: Icon(

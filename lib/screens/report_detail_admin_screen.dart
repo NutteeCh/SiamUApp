@@ -16,6 +16,7 @@ class ReportDetailAdminScreen extends StatefulWidget {
 
 class _ReportDetailAdminScreenState extends State<ReportDetailAdminScreen> {
   String? statusText;
+
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
@@ -137,8 +138,8 @@ class _ReportDetailAdminScreenState extends State<ReportDetailAdminScreen> {
                           children: [
                             Text(
                                 snapshots.data?['Name'] +
-                                    ' ' +
-                                    snapshots.data?['Name'],
+                                    '  ' +
+                                    snapshots.data?['Surname'],
                                 style: TextStyle(
                                   fontSize: 14,
                                 )),
@@ -249,9 +250,13 @@ class _ReportDetailAdminScreenState extends State<ReportDetailAdminScreen> {
                                   ),
                                   Container(
                                       child: InkWell(
-                                    // onTap: () {
-                                    //   Navigator.of(context).pushNamed("/reportdetail");
-                                    // },
+                                    onTap: () {
+                                      FirebaseFirestore.instance
+                                          .collection('report_form')
+                                          .doc(arguments['docID'])
+                                          .update({'Status': statusText});
+                                      //Navigator.of(context).pushNamed("/reportdetail");
+                                    },
                                     child: Container(
                                         margin: EdgeInsets.only(left: 30),
                                         width: 160,

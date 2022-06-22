@@ -10,6 +10,7 @@ import 'package:projectreportsiamu/screens/register_screen.dart';
 import 'package:projectreportsiamu/screens/report_detail_screen.dart';
 import 'package:projectreportsiamu/screens/report_detail_admin_screen.dart';
 import 'package:projectreportsiamu/screens/report_form_screen.dart';
+import 'package:projectreportsiamu/screens/report_list_admin_screen.dart';
 import 'package:projectreportsiamu/screens/report_list_screen.dart';
 import 'package:projectreportsiamu/screens/service_screen.dart';
 import 'package:projectreportsiamu/screens/setting_screen.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         "/reportdetail": (context) => const ReportDetailScreen(),
         "/reportdetailadmin": (context) => const ReportDetailAdminScreen(),
         "/setting": (context) => const SettingScreen(),
+        "/reportlistadmin": (context) => const ReportListAdminScreen(),
         "/check": (context) => CheckState(),
       },
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),

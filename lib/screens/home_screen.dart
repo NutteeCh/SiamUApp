@@ -1,7 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/foundation.dart';
 
 import '../ีutils/global_variable.dart';
 
@@ -16,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
   List<String> images = ["", "", ""];
   int activePage = 0;
+  final user = FirebaseAuth.instance.currentUser!;
 
   List<Widget> indicators(imagesLength, currentIndex) {
     return List<Widget>.generate(imagesLength, (index) {
@@ -30,6 +34,19 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  var Role = '';
+  // Firebase
+  Future<void> getRole() async {
+    var querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('UID', isEqualTo: user.uid)
+        .get();
+    for (var queryDocumentSnapshot in querySnapshot.docs) {
+      Map<String, dynamic> data = queryDocumentSnapshot.data();
+      Role = data['Role'];
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getRole();
     return Scaffold(
         body: Stack(
       children: [
@@ -202,7 +220,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).pushNamed("/reportlist");
+                                if (Role == 'admin') {
+                                  Navigator.of(context)
+                                      .pushNamed("/reportlistadmin");
+                                } else {
+                                  Navigator.of(context)
+                                      .pushNamed("/reportlist");
+                                }
                               },
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 5.0),
