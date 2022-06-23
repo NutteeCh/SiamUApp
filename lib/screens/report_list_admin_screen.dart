@@ -55,6 +55,25 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                 child: ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
+                    Color statusColor = Colors.black;
+                    switch (snapshot.data?.docs[index]['Status']) {
+                      case "กำลังดำเนินการ":
+                        statusColor = SiamColors.yellow;
+                        break;
+                      case "ดำเนินการเสร็จสิ้น":
+                        statusColor = SiamColors.green;
+                        break;
+                      case "ยกเลิกแล้ว":
+                        statusColor = SiamColors.red;
+                        break;
+                      default:
+                        statusColor = Colors.black;
+                    }
+
+                    // if (snapshot.data?.docs[index]['Status'] ==
+                    //     "กำลังดำเนินการ") {
+                    //   statusColor = "yellow";
+                    // }
                     return Container(
                       padding: EdgeInsets.all(15),
                       margin: EdgeInsets.all(10),
@@ -148,6 +167,7 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                                 ),
                                 Text("${snapshot.data?.docs[index]['Status']}",
                                     style: TextStyle(
+                                      color: statusColor,
                                       fontSize: 14,
                                     ))
                               ],

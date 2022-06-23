@@ -163,50 +163,50 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 50.0, bottom: 50.0),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed("/editprofile");
-                          },
-                          child: Container(
-                            height: 40,
-                            width: 160,
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 3,
-                                    blurRadius: 7,
-                                    offset: Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(25))),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.edit,
-                                  size: 20,
-                                  color: SiamColors.red,
-                                ),
-                                Text(
-                                  "แก้ไขข้อมูลส่วนตัว",
-                                  style: TextStyle(
-                                    color: SiamColors.red,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   alignment: Alignment.center,
+                      //   margin: EdgeInsets.only(top: 50.0, bottom: 50.0),
+                      //   child: InkWell(
+                      //     onTap: () {
+                      //       Navigator.of(context).pushNamed("/editprofile");
+                      //     },
+                      //     child: Container(
+                      //       height: 40,
+                      //       width: 160,
+                      //       decoration: BoxDecoration(
+                      //           boxShadow: [
+                      //             BoxShadow(
+                      //               color: Colors.grey.withOpacity(0.5),
+                      //               spreadRadius: 3,
+                      //               blurRadius: 7,
+                      //               offset: Offset(
+                      //                   0, 3), // changes position of shadow
+                      //             ),
+                      //           ],
+                      //           color: Colors.white,
+                      //           borderRadius:
+                      //               BorderRadius.all(Radius.circular(25))),
+                      //       child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //         crossAxisAlignment: CrossAxisAlignment.center,
+                      //         children: [
+                      //           Icon(
+                      //             Icons.edit,
+                      //             size: 20,
+                      //             color: SiamColors.red,
+                      //           ),
+                      //           Text(
+                      //             "แก้ไขข้อมูลส่วนตัว",
+                      //             style: TextStyle(
+                      //               color: SiamColors.red,
+                      //               fontSize: 14,
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ]),
                   );
 

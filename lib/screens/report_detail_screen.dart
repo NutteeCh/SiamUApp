@@ -52,6 +52,20 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                   if (snapshots.data == null) {
                     return widget;
                   } else {
+                    Color statusColor = Colors.black;
+                    switch (snapshots.data!['Status']) {
+                      case "กำลังดำเนินการ":
+                        statusColor = SiamColors.yellow;
+                        break;
+                      case "ดำเนินการเสร็จสิ้น":
+                        statusColor = SiamColors.green;
+                        break;
+                      case "ยกเลิกแล้ว":
+                        statusColor = SiamColors.red;
+                        break;
+                      default:
+                        statusColor = Colors.black;
+                    }
                     Timestamp t = snapshots.data?['Date_Time'];
                     DateTime dt = t.toDate();
                     var newFormat = DateFormat('yyyy-MM-dd');
@@ -81,6 +95,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                                 )),
                             Text(snapshots.data!['Status'],
                                 style: TextStyle(
+                                  color: statusColor,
                                   fontSize: 14,
                                 ))
                           ],

@@ -5,6 +5,7 @@ class SiamColors {
   static const orange = Color(0xFFFF4B2B);
   static const grey = Color(0xFF616161);
   static const green = Color(0xFF15E111);
+  static const yellow = Color.fromARGB(255, 255, 213, 0);
 }
 
 String userUID = "";
