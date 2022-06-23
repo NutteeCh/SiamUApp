@@ -17,7 +17,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
-  List<String> images = ["", "", ""];
+  List<String> images = [
+    "assets/images/bottombg1.jpg",
+    "assets/images/homebg1.jpg",
+    "assets/images/logo.png"
+  ];
   int activePage = 0;
   final user = FirebaseAuth.instance.currentUser!;
 
@@ -139,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                             image: DecorationImage(
-                              image: NetworkImage(i),
+                              image: AssetImage(i),
                               fit: BoxFit.cover,
                             ),
                           ),
