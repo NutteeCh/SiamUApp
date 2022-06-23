@@ -192,13 +192,13 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                                       borderRadius: BorderRadius.circular(50)),
                                   child: Container(
                                     margin:
-                                        EdgeInsets.only(left: 45, right: 10),
+                                        EdgeInsets.only(left: 22, right: 10),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "ดู",
+                                          "ดู/แก้ไข",
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.white,

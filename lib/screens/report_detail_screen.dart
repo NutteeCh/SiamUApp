@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -218,9 +219,27 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                           height: 50,
                         ),
                         InkWell(
-                          // onTap: () {
-                          //   Navigator.of(context).pushNamed("/reportdetail");
-                          // },
+                          onTap: () async {
+                            final isYes = await showCupertinoDialog(
+                              context: context,
+                              builder: createDialog,
+                            );
+
+                            switch (isYes) {
+                              case true:
+                                FirebaseFirestore.instance
+                                    .collection('report_form')
+                                    .doc(arguments['docID'])
+                                    .update({'Status': "ยกเลิกแล้ว"});
+                                break;
+                              default:
+                            }
+
+                            // FirebaseFirestore.instance
+                            //     .collection('report_form')
+                            //     .doc(arguments['docID'])
+                            //     .update({'Status': "ยกเลิกแล้ว"});
+                          },
                           child: Container(
                               margin: EdgeInsets.only(left: 200),
                               width: 150,
@@ -229,20 +248,22 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                                   color: SiamColors.red,
                                   borderRadius: BorderRadius.circular(50)),
                               child: Container(
-                                margin: EdgeInsets.only(left: 50, right: 50),
+                                margin: EdgeInsets.only(left: 10, right: 12),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Icon(
-                                      Icons.delete,
-                                      color: Colors.white,
-                                      size: 20,
+                                    Flexible(
+                                      child: Icon(
+                                        Icons.close,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
                                     ),
                                     Text(
-                                      "ลบ",
+                                      "ยกเลิกคำร้อง",
                                       style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 18,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -259,4 +280,18 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
       ),
     );
   }
+
+  Widget createDialog(BuildContext context) => CupertinoAlertDialog(
+        title: Text("คุณต้องการยกเลิกคำร้องหรือไม่"),
+        actions: [
+          CupertinoDialogAction(
+            child: Text('ไม่'),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          CupertinoDialogAction(
+            child: Text('ใช่'),
+            onPressed: () => Navigator.pop(context, true),
+          )
+        ],
+      );
 }
