@@ -266,10 +266,13 @@ class _ReportDetailAdminScreenState extends State<ReportDetailAdminScreen> {
                                   Container(
                                       child: InkWell(
                                     onTap: () {
-                                      FirebaseFirestore.instance
-                                          .collection('report_form')
-                                          .doc(arguments['docID'])
-                                          .update({'Status': statusText});
+                                      if (statusText != null) {
+                                        FirebaseFirestore.instance
+                                            .collection('report_form')
+                                            .doc(arguments['docID'])
+                                            .update({'Status': statusText});
+                                      }
+
                                       //Navigator.of(context).pushNamed("/reportdetail");
                                     },
                                     child: Container(

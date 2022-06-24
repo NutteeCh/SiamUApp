@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,9 +45,10 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
     setState(() {
       _imageFile = File(pickedImage!.path);
     });
+    uploadImageToFirebase();
   }
 
-  Future uploadImageToFirebase(BuildContext context) async {
+  Future<void> uploadImageToFirebase() async {
     String fileName = basename(_imageFile!.path);
     Reference firebaseStorageRef =
         FirebaseStorage.instance.ref().child('report_images/$fileName');
@@ -489,47 +491,47 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                               date = DateTime.now();
                               reportDateTime = date.toString();
                               //upload image to firebase
-                              await uploadImageToFirebase(context);
+                              //await uploadImageToFirebase(context);
                               //then
-                              if (uploadStatus = true && imageURL != null) {
-                                reportform.add({
-                                  "Topic": topicController.text,
-                                  "Type": reportTypeText,
-                                  "Content": contentController.text,
-                                  "Tel": telController.text,
-                                  "ImageURL": imageURL,
-                                  "Report_Date_Text": reportDateTime,
-                                  "Date_Time": date,
-                                  "Status": "ได้รับคำร้องเรียนแล้ว",
-                                  "UID": userUID,
-                                  "Name": Name,
-                                  "Surname": Surname,
-                                });
-                                showDialog(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    builder: (context) {
-                                      Future.delayed(Duration(seconds: 2), () {
-                                        Navigator.of(context)
-                                            .pushNamed('/homebar');
-                                      });
-                                      return CupertinoAlertDialog(
-                                        content: Column(
-                                          children: [
-                                            Icon(
-                                              Icons.check_circle_outline,
-                                              color: SiamColors.green,
-                                              size: 50,
-                                            ),
-                                            Text('ส่งเรื่องร้องเรียนสำเร็จ'),
-                                          ],
-                                        ),
-                                      );
+                              // if (uploadStatus = true && imageURL != null) {
+                              reportform.add({
+                                "Topic": topicController.text,
+                                "Type": reportTypeText,
+                                "Content": contentController.text,
+                                "Tel": telController.text,
+                                "ImageURL": imageURL,
+                                "Report_Date_Text": reportDateTime,
+                                "Date_Time": date,
+                                "Status": "ได้รับคำร้องเรียนแล้ว",
+                                "UID": userUID,
+                                "Name": Name,
+                                "Surname": Surname,
+                              });
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) {
+                                    Future.delayed(Duration(seconds: 2), () {
+                                      Navigator.of(context)
+                                          .pushNamed('/homebar');
                                     });
-                              } else {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar2);
-                              }
+                                    return CupertinoAlertDialog(
+                                      content: Column(
+                                        children: [
+                                          Icon(
+                                            Icons.check_circle_outline,
+                                            color: SiamColors.green,
+                                            size: 50,
+                                          ),
+                                          Text('ส่งเรื่องร้องเรียนสำเร็จ'),
+                                        ],
+                                      ),
+                                    );
+                                  });
+                              // } else {
+                              //   ScaffoldMessenger.of(context)
+                              //       .showSnackBar(snackBar2);
+                              // }
                             },
                             child: Container(
                               height: 50,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+bool isImageNull = true;
+
 class SiamColors {
   static const red = Color(0xFFEE292F);
   static const orange = Color(0xFFFF4B2B);

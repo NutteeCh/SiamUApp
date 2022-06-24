@@ -52,7 +52,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "email": emailController.text,
       "password": passwordController.text,
       "Role": "user",
-      "UID": uid
+      "UID": uid,
+      "ImageURL": ''
     });
     setState(() {
       Navigator.of(context).pushNamed("/login");

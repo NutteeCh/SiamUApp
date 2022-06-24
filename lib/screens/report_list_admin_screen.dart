@@ -42,6 +42,7 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
         child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('report_form')
+                .orderBy('Date_Time', descending: true)
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {

@@ -1,4 +1,6 @@
+import 'dart:developer';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -30,13 +32,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final passwordConfirmedController = TextEditingController();
 
   final _formKeyRegister = GlobalKey<FormState>();
+  final user = FirebaseAuth.instance.currentUser!;
 
   File? selectedImage;
   UploadTask? uploadTask;
   bool uploadStatus = false;
 
   File? _imageFile;
-  String? imageURL;
+  String? imageURL = null;
 
   Future pickImage(ImageSource source) async {
     final pickedImage = await ImagePicker().pickImage(source: source);
@@ -44,9 +47,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() {
       _imageFile = File(pickedImage!.path);
     });
+    uploadImageToFirebase();
   }
 
-  Future uploadImageToFirebase(BuildContext context) async {
+  Future<void> uploadImageToFirebase() async {
     String fileName = basename(_imageFile!.path);
     Reference firebaseStorageRef =
         FirebaseStorage.instance.ref().child('profile_images/$fileName');
@@ -84,6 +88,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       body: Stack(
         children: [
@@ -392,54 +397,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         child: InkWell(
                           onTap: () async {
                             //upload
-                            uploadImageToFirebase(context);
+                            // uploadImageToFirebase(context);
                             //then
-                            if (uploadStatus = true && imageURL != null) {
-                              FirebaseFirestore.instance
-                                  .collection('users')
-                                  .doc()
-                                  .update({
-                                "Name": nameController.text,
-                                "Surname": surnameController.text,
-                                "Student ID": studentidController.text,
-                                "Faculty": facultyText,
+                            debugPrint(arguments['docID']);
+                            if (imageURL != null) {
+                              await users.doc(arguments['docID']).update({
                                 "ImageURL": imageURL,
-                                "email": emailController.text
                               });
-
-                              // await users.update({
-                              // "Name": nameController.text,
-                              // "Surname": surnameController.text,
-                              // "Student ID": studentidController.text,
-                              // "Faculty": facultyText,
-                              // "ImageURL": imageURL,
-                              // "email": emailController.text
-                              // });
-                              showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (context) {
-                                    Future.delayed(Duration(seconds: 2), () {
-                                      Navigator.of(context)
-                                          .pushNamed('/homebar');
-                                    });
-                                    return CupertinoAlertDialog(
-                                      content: Column(
-                                        children: [
-                                          Icon(
-                                            Icons.check_circle_outline,
-                                            color: SiamColors.green,
-                                            size: 50,
-                                          ),
-                                          Text('ส่งเรื่องร้องเรียนสำเร็จ'),
-                                        ],
-                                      ),
-                                    );
-                                  });
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar2);
                             }
+                            // await users.update({
+                            // "Name": nameController.text,
+                            // "Surname": surnameController.text,
+                            // "Student ID": studentidController.text,
+                            // "Faculty": facultyText,
+                            // "ImageURL": imageURL,
+                            // "email": emailController.text
+                            // });
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) {
+                                  Future.delayed(Duration(seconds: 2), () {
+                                    Navigator.of(context).pushNamed('/homebar');
+                                  });
+                                  return CupertinoAlertDialog(
+                                    content: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.check_circle_outline,
+                                          color: SiamColors.green,
+                                          size: 50,
+                                        ),
+                                        Text('ส่งเรื่องร้องเรียนสำเร็จ'),
+                                      ],
+                                    ),
+                                  );
+                                });
+                            // } else {
+                            //   ScaffoldMessenger.of(context)
+                            //       .showSnackBar(snackBar2);
+                            // }
                           },
                           child: Container(
                             height: 40,
