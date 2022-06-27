@@ -83,7 +83,49 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 25.0,
+                  height: 5.0,
+                ),
+                Container(
+                  child: Column(children: [
+                    Container(
+                      alignment: Alignment.topLeft,
+                      margin: EdgeInsets.only(left: 20, top: 10),
+                      child: Text(
+                        "สวัสดี",
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: SiamColors.red,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          alignment: Alignment.topLeft,
+                          margin: EdgeInsets.only(left: 20, top: 5),
+                          child: Text(
+                            "นายเอ นามสกุลบี",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                            left: 120,
+                          ),
+                          child: Text(
+                            "ADMIN",
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: SiamColors.green,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ]),
                 ),
                 // Container(
                 //   margin: EdgeInsets.only(top: 30),
@@ -111,55 +153,56 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     mainAxisAlignment: MainAxisAlignment.center,
                 //     children: indicators(images.length, activePage)
                 // ),
-                CarouselSlider(
-                  options: CarouselOptions(
-                      height: 150,
-                      enlargeCenterPage: true,
-                      autoPlay: true,
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      aspectRatio: 16 / 9,
-                      enableInfiniteScroll: true,
-                      autoPlayAnimationDuration: Duration(milliseconds: 900),
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          activePage = index;
-                        });
-                      }),
-                  items: images.map<Widget>((i) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          //margin: EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15.0),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 7,
-                                offset:
-                                    Offset(0, 2), // changes position of shadow
-                              ),
-                            ],
-                            image: DecorationImage(
-                              image: AssetImage(i),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  }).toList(),
-                ),
+                //สไลด์
+                // CarouselSlider(
+                //   options: CarouselOptions(
+                //       height: 150,
+                //       enlargeCenterPage: true,
+                //       autoPlay: true,
+                //       autoPlayCurve: Curves.fastOutSlowIn,
+                //       aspectRatio: 16 / 9,
+                //       enableInfiniteScroll: true,
+                //       autoPlayAnimationDuration: Duration(milliseconds: 900),
+                //       onPageChanged: (index, reason) {
+                //         setState(() {
+                //           activePage = index;
+                //         });
+                //       }),
+                //   items: images.map<Widget>((i) {
+                //     return Builder(
+                //       builder: (BuildContext context) {
+                //         return Container(
+                //           //margin: EdgeInsets.all(6.0),
+                //           decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(15.0),
+                //             color: Colors.white,
+                //             boxShadow: [
+                //               BoxShadow(
+                //                 color: Colors.grey.withOpacity(0.5),
+                //                 spreadRadius: 1,
+                //                 blurRadius: 7,
+                //                 offset:
+                //                     Offset(0, 2), // changes position of shadow
+                //               ),
+                //             ],
+                //             image: DecorationImage(
+                //               image: AssetImage(i),
+                //               fit: BoxFit.cover,
+                //             ),
+                //           ),
+                //         );
+                //       },
+                //     );
+                //   }).toList(),
+                // ),
+                // SizedBox(
+                //   height: 10.0,
+                // ),
+                // Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: indicators(images.length, activePage)),
                 SizedBox(
-                  height: 10.0,
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: indicators(images.length, activePage)),
-                SizedBox(
-                  height: 10.0,
+                  height: 60.0,
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -311,6 +354,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 80,
                         )
                       ]),
+                ),
+                SizedBox(
+                  height: 30,
                 ),
                 Container(
                   margin:
