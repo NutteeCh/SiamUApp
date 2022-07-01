@@ -166,140 +166,159 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 20, top: 40),
                     child: Text(
-                      "แก้ไข ชื่อ-นามสกุล",
+                      "ชื่อ-นามสกุล",
                       style: TextStyle(
                         fontSize: 14,
                         color: SiamColors.grey,
                       ),
-                    ),
-                  ),
-                  Container(
-                    height: 40,
-                    margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "* กรุณากรอกชื่อ";
-                        }
-                        return null;
-                      },
-                      controller: nameController,
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 10),
-                          hintText: "ชื่อ",
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: SiamColors.red,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          )),
-                    ),
-                  ),
-                  Container(
-                    height: 40,
-                    margin: EdgeInsets.only(left: 20, right: 20, top: 10),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "* กรุณากรอกนามสกุล";
-                        }
-                        return null;
-                      },
-                      controller: surnameController,
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 10),
-                          hintText: "นามสกุล",
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: SiamColors.red,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          )),
                     ),
                   ),
                   Container(
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 20, top: 20),
                     child: Text(
-                      "แก้ไข รหัสนักศึกษา",
+                      "ham eiei ",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
+                    ),
+                    // height: 40,
+                    // margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+
+                    // child: TextFormField(
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return "* กรุณากรอกชื่อ";
+                    //     }
+                    //     return null;
+                    //   },
+                    //   controller: nameController,
+                    //   decoration: InputDecoration(
+                    //       contentPadding: EdgeInsets.only(left: 10),
+                    //       hintText: "ชื่อ",
+                    //       enabledBorder: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //             color: Colors.black,
+                    //           ),
+                    //           borderRadius: BorderRadius.circular(10)),
+                    //       errorBorder: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //             color: Colors.black,
+                    //           ),
+                    //           borderRadius: BorderRadius.circular(10)),
+                    //       border: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //             color: Colors.black,
+                    //           ),
+                    //           borderRadius: BorderRadius.circular(10)),
+                    //       focusedBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(
+                    //           color: SiamColors.red,
+                    //         ),
+                    //         borderRadius: BorderRadius.circular(10),
+                    //       )),
+                    // ),
+                  ),
+                  // Container(
+                  //   height: 40,
+                  //   margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+                  //   child: TextFormField(
+                  //     validator: (value) {
+                  //       if (value == null || value.isEmpty) {
+                  //         return "* กรุณากรอกนามสกุล";
+                  //       }
+                  //       return null;
+                  //     },
+                  //     controller: surnameController,
+                  //     decoration: InputDecoration(
+                  //         contentPadding: EdgeInsets.only(left: 10),
+                  //         hintText: "นามสกุล",
+                  //         enabledBorder: OutlineInputBorder(
+                  //             borderSide: BorderSide(
+                  //               color: Colors.black,
+                  //             ),
+                  //             borderRadius: BorderRadius.circular(10)),
+                  //         errorBorder: OutlineInputBorder(
+                  //             borderSide: BorderSide(
+                  //               color: Colors.black,
+                  //             ),
+                  //             borderRadius: BorderRadius.circular(10)),
+                  //         border: OutlineInputBorder(
+                  //             borderSide: BorderSide(
+                  //               color: Colors.black,
+                  //             ),
+                  //             borderRadius: BorderRadius.circular(10)),
+                  //         focusedBorder: OutlineInputBorder(
+                  //           borderSide: BorderSide(
+                  //             color: SiamColors.red,
+                  //           ),
+                  //           borderRadius: BorderRadius.circular(10),
+                  //         )),
+                  //   ),
+                  // ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(left: 20, top: 20),
+                    child: Text(
+                      "รหัสนักศึกษา",
                       style: TextStyle(
                         fontSize: 14,
                         color: SiamColors.grey,
                       ),
-                    ),
-                  ),
-                  Container(
-                    height: 40,
-                    margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "* กรุณากรอกรหัสนักศึกษา";
-                        }
-                        return null;
-                      },
-                      controller: studentidController,
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 10),
-                          hintText: "รหัส",
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: SiamColors.red,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          )),
                     ),
                   ),
                   Container(
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 20, top: 20),
                     child: Text(
-                      "แก้ไข คณะ",
+                      "xxxxxxxxxx ",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
+                    ),
+                    // height: 40,
+                    // margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+                    // child: TextFormField(
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return "* กรุณากรอกรหัสนักศึกษา";
+                    //     }
+                    //     return null;
+                    //   },
+                    //   controller: studentidController,
+                    //   decoration: InputDecoration(
+                    //       contentPadding: EdgeInsets.only(left: 10),
+                    //       hintText: "รหัส",
+                    //       enabledBorder: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //             color: Colors.black,
+                    //           ),
+                    //           borderRadius: BorderRadius.circular(10)),
+                    //       errorBorder: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //             color: Colors.black,
+                    //           ),
+                    //           borderRadius: BorderRadius.circular(10)),
+                    //       border: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //             color: Colors.black,
+                    //           ),
+                    //           borderRadius: BorderRadius.circular(10)),
+                    //       focusedBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(
+                    //           color: SiamColors.red,
+                    //         ),
+                    //         borderRadius: BorderRadius.circular(10),
+                    //       )),
+                    // ),
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(left: 20, top: 20),
+                    child: Text(
+                      "คณะ",
                       style: TextStyle(
                         fontSize: 14,
                         color: SiamColors.grey,
@@ -307,33 +326,64 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                   ),
                   Container(
-                    height: 40,
-                    margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(color: Colors.black)),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration.collapsed(hintText: ''),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "* กรุณาเลือกคณะ";
-                          }
-                          return null;
-                        },
-                        hint: Text(
-                          'คณะ',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: SiamColors.grey,
-                          ),
-                        ),
-                        value: facultyText,
-                        isExpanded: true,
-                        items: facultyList.map(buildMenuItem).toList(),
-                        onChanged: (facultyText) => setState(
-                            () => this.facultyText = facultyText as String?),
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(left: 20, top: 20),
+                    child: Text(
+                      "คณะ ",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
+                    ),
+                    // height: 40,
+                    // margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+                    // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    // decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(10.0),
+                    //     border: Border.all(color: Colors.black)),
+                    // child: DropdownButtonHideUnderline(
+                    //   child: DropdownButtonFormField<String>(
+                    //     decoration: InputDecoration.collapsed(hintText: ''),
+                    //     validator: (value) {
+                    //       if (value == null || value.isEmpty) {
+                    //         return "* กรุณาเลือกคณะ";
+                    //       }
+                    //       return null;
+                    //     },
+                    //     hint: Text(
+                    //       'คณะ',
+                    //       style: TextStyle(
+                    //         fontSize: 16,
+                    //         color: SiamColors.grey,
+                    //       ),
+                    //     ),
+                    //     value: facultyText,
+                    //     isExpanded: true,
+                    //     items: facultyList.map(buildMenuItem).toList(),
+                    //     onChanged: (facultyText) => setState(
+                    //         () => this.facultyText = facultyText as String?),
+                    //   ),
+                    // ),
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(left: 20, top: 20),
+                    child: Text(
+                      "อีเมลล์ ",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: SiamColors.grey,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(left: 20, top: 20),
+                    child: Text(
+                      "email",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
                       ),
                     ),
                   ),
