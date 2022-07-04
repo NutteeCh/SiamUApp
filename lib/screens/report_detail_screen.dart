@@ -15,6 +15,10 @@ class ReportDetailScreen extends StatefulWidget {
 }
 
 class _ReportDetailScreenState extends State<ReportDetailScreen> {
+  final cancelController = TextEditingController();
+  String? cancelText;
+
+
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
@@ -227,10 +231,50 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
 
                             switch (isYes) {
                               case true:
-                                FirebaseFirestore.instance
-                                    .collection('report_form')
-                                    .doc(arguments['docID'])
-                                    .update({'Status': "ยกเลิกแล้ว"});
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return CupertinoAlertDialog(
+                                      title: Text('เหตุผล'),
+                                      content: TextField(
+                                        onChanged: (value) {
+                                          setState(() {
+                                            cancelText = value;
+                                          });
+                                        },
+                                        controller: cancelController,
+                                        decoration: InputDecoration(hintText: "กรุณาป้อนเหตุผลที่จะยกเลิกคำร้อง"),
+                                      ),
+                                      actions: <Widget>[
+                                        CupertinoDialogAction(
+                                          child: Text('CANCEL'),
+                                          onPressed: () {
+                                            setState(() {
+                                              Navigator.pop(context);
+                                            });
+                                          },
+                                        ),
+                                        CupertinoDialogAction(
+                                          child: Text('OK'),
+                                          onPressed: () {
+                                            setState(() {
+                                              FirebaseFirestore.instance
+                                              .collection('report_form')
+                                              .doc(arguments['docID'])
+                                              .update({
+                                                'Status': "ยกเลิกแล้ว",
+                                                'Cancel Reason' : cancelText,
+                                                'Cancel Date' : DateTime.now(),
+                                                'Cancel Date Text' : DateTime.now().toString()
+                                                });
+                                            });
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  });
+                                
                                 break;
                               default:
                             }
