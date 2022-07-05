@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   int activePage = 0;
   final user = FirebaseAuth.instance.currentUser!;
+  bool roleVisible = false;
 
   List<Widget> indicators(imagesLength, currentIndex) {
     return List<Widget>.generate(imagesLength, (index) {
@@ -48,6 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
       userRole = data['Role'];
       userName = data['Name'];
       userSurname = data['Surname'];
+      if(userRole=='admin'){
+        roleVisible = true;
+      }
     }
   }
 
@@ -72,17 +76,42 @@ class _HomeScreenState extends State<HomeScreen> {
                   fit: BoxFit.fitHeight)),
           child: Container(
             alignment: Alignment.centerRight,
-            margin: EdgeInsets.only(top: 50,right: 8.0),
+            margin: EdgeInsets.only(top: 30,right: 8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
+                Visibility(
+                  visible: roleVisible,
+                  child: Text(
+                    "$userRole",
+                    style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: SiamColors.green,
+                    shadows: [
+                      Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.black,
+                          offset: Offset(5.0, 5.0),
+                          ),
+                      ],
+                   ),
+                  ),
+                ),
                 Text(
                   "สวัสดี",
                   style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
+                  shadows: [
+                    Shadow(
+                        blurRadius: 10.0,
+                        color: Colors.black,
+                        offset: Offset(5.0, 5.0),
+                        ),
+                    ],
                  ),
                 ),
                 Text(
@@ -91,6 +120,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
+                  shadows: [
+                    Shadow(
+                        blurRadius: 10.0,
+                        color: Colors.black,
+                        offset: Offset(5.0, 5.0),
+                        ),
+                    ],
                  ),
                 ),
               ],
@@ -111,122 +147,122 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 5.0,
                 ),
-                Container(
-                  child: Column(children: [
-                    Container(
-                      alignment: Alignment.topLeft,
-                      margin: EdgeInsets.only(left: 20, top: 10),
-                      child: Text(
-                        "สวัสดี",
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: SiamColors.red,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          alignment: Alignment.topLeft,
-                          margin: EdgeInsets.only(left: 20, top: 5),
-                          child: Text(
-                            "คุณ ${userName} ${userSurname}",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            left: 120,
-                          ),
-                          child: Text(
-                            "$userRole",
-                            style: TextStyle(
-                              fontSize: 30,
-                              color: SiamColors.green,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ]),
-                ),
                 // Container(
-                //   margin: EdgeInsets.only(top: 30),
-                //   height: 150,
-                //   width: MediaQuery.of(context).size.width,
-                //   child: PageView.builder(
-                //       itemCount: images.length,
-                //       pageSnapping: true,
-                //       controller: _pageController,
-                //       onPageChanged: (page) {
-                //         setState(() {
-                //           activePage = page;
-                //         });
-                //       },
-                //       itemBuilder: (context, pagePosition) {
-                //         return Container(
-                //           margin: const EdgeInsets.all(8.0),
-                //           child: Image.network(
-                //             images[pagePosition],
-                //             fit: BoxFit.cover),
-                //         );
-                //       }),
-                // ),
-                // Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: indicators(images.length, activePage)
-                // ),
-                //สไลด์
-                // CarouselSlider(
-                //   options: CarouselOptions(
-                //       height: 150,
-                //       enlargeCenterPage: true,
-                //       autoPlay: true,
-                //       autoPlayCurve: Curves.fastOutSlowIn,
-                //       aspectRatio: 16 / 9,
-                //       enableInfiniteScroll: true,
-                //       autoPlayAnimationDuration: Duration(milliseconds: 900),
-                //       onPageChanged: (index, reason) {
-                //         setState(() {
-                //           activePage = index;
-                //         });
-                //       }),
-                //   items: images.map<Widget>((i) {
-                //     return Builder(
-                //       builder: (BuildContext context) {
-                //         return Container(
-                //           //margin: EdgeInsets.all(6.0),
-                //           decoration: BoxDecoration(
-                //             borderRadius: BorderRadius.circular(15.0),
-                //             color: Colors.white,
-                //             boxShadow: [
-                //               BoxShadow(
-                //                 color: Colors.grey.withOpacity(0.5),
-                //                 spreadRadius: 1,
-                //                 blurRadius: 7,
-                //                 offset:
-                //                     Offset(0, 2), // changes position of shadow
-                //               ),
-                //             ],
-                //             image: DecorationImage(
-                //               image: AssetImage(i),
-                //               fit: BoxFit.cover,
+                //   child: Column(children: [
+                //     Container(
+                //       alignment: Alignment.topLeft,
+                //       margin: EdgeInsets.only(left: 20, top: 10),
+                //       child: Text(
+                //         "สวัสดี",
+                //         style: TextStyle(
+                //           fontSize: 25,
+                //           color: SiamColors.red,
+                //         ),
+                //       ),
+                //     ),
+                //     Row(
+                //       children: [
+                //         Container(
+                //           alignment: Alignment.topLeft,
+                //           margin: EdgeInsets.only(left: 20, top: 5),
+                //           child: Text(
+                //             "คุณ ${userName} ${userSurname}",
+                //             style: TextStyle(
+                //               fontSize: 18,
+                //               color: Colors.black,
                 //             ),
                 //           ),
-                //         );
-                //       },
-                //     );
-                //   }).toList(),
+                //         ),
+                //         Container(
+                //           margin: EdgeInsets.only(
+                //             left: 120,
+                //           ),
+                //           child: Text(
+                //             "$userRole",
+                //             style: TextStyle(
+                //               fontSize: 30,
+                //               color: SiamColors.green,
+                //             ),
+                //           ),
+                //         )
+                //       ],
+                //     ),
+                //   ]),
                 // ),
-                // SizedBox(
-                //   height: 10.0,
-                // ),
-                // Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: indicators(images.length, activePage)),
+                Container(
+                  margin: EdgeInsets.only(top: 30),
+                  height: 150,
+                  width: MediaQuery.of(context).size.width,
+                  child: PageView.builder(
+                      itemCount: images.length,
+                      pageSnapping: true,
+                      controller: _pageController,
+                      onPageChanged: (page) {
+                        setState(() {
+                          activePage = page;
+                        });
+                      },
+                      itemBuilder: (context, pagePosition) {
+                        return Container(
+                          margin: const EdgeInsets.all(8.0),
+                          child: Image.network(
+                            images[pagePosition],
+                            fit: BoxFit.cover),
+                        );
+                      }),
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: indicators(images.length, activePage)
+                ),
+                //สไลด์
+                CarouselSlider(
+                  options: CarouselOptions(
+                      height: 150,
+                      enlargeCenterPage: true,
+                      autoPlay: true,
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      aspectRatio: 16 / 9,
+                      enableInfiniteScroll: true,
+                      autoPlayAnimationDuration: Duration(milliseconds: 900),
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          activePage = index;
+                        });
+                      }),
+                  items: images.map<Widget>((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          //margin: EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 7,
+                                offset:
+                                    Offset(0, 2), // changes position of shadow
+                              ),
+                            ],
+                            image: DecorationImage(
+                              image: AssetImage(i),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: indicators(images.length, activePage)),
                 SizedBox(
                   height: 60.0,
                 ),
