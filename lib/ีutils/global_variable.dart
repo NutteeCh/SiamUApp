@@ -14,6 +14,7 @@ String userUID = "";
 String userName = "";
 String userSurname = "";
 String userFaculty = "";
+String userSID = "";
 String userEmail = "";
 String userRole = "";
 
@@ -47,7 +48,6 @@ final facultyList = [
 ];
 
 final statusReport = [
-  "ระบบได้รับคำร้องเรียนแล้ว", //สีดำ
   "กำลังดำเนินการ", //สีเหลือง
   "ดำเนินการเสร็จสิ้น", // สีเขียว
 ];

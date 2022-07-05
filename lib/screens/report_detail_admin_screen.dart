@@ -81,8 +81,8 @@ class _ReportDetailAdminScreenState extends State<ReportDetailAdminScreen> {
                   DateTime dt = t.toDate();
                   var newFormat = DateFormat('dd/MM/yyyy');
                   var date = newFormat.format(dt);
-                  if (snapshots.data?['Cancel Date'] != null) {
-                    Timestamp ct = snapshots.data?['Cancel Date'];
+                  if (snapshots.data?['Cancel_Date'] != null) {
+                    Timestamp ct = snapshots.data?['Cancel_Date'];
                     DateTime cdt = ct.toDate();
                     var newFormat2 = DateFormat('dd/MM/yyyy');
                     cdate = newFormat.format(cdt);
@@ -258,8 +258,8 @@ class _ReportDetailAdminScreenState extends State<ReportDetailAdminScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                snapshots.data?['Cancel Reason'] != null
-                                    ? '${snapshots.data?['Cancel Reason']}'
+                                snapshots.data?['Cancel_Reason'] != null
+                                    ? '${snapshots.data?['Cancel_Reason']}'
                                     : '-',
                                 style: TextStyle(
                                   fontSize: 14,
@@ -318,10 +318,24 @@ class _ReportDetailAdminScreenState extends State<ReportDetailAdminScreen> {
                                 InkWell(
                                   onTap: () {
                                     if (statusText != null) {
-                                      FirebaseFirestore.instance
-                                          .collection('report_form')
-                                          .doc(arguments['docID'])
-                                          .update({'Status': statusText});
+                                      if (statusText == 'กำลังดำเนินการ') {
+                                        FirebaseFirestore.instance
+                                            .collection('report_form')
+                                            .doc(arguments['docID'])
+                                            .update({
+                                          'Status': statusText,
+                                          'Pending_Date': DateTime.now()
+                                        });
+                                      } else if (statusText ==
+                                          'ดำเนินการเสร็จสิ้น') {
+                                        FirebaseFirestore.instance
+                                            .collection('report_form')
+                                            .doc(arguments['docID'])
+                                            .update({
+                                          'Status': statusText,
+                                          'Finished_Date': DateTime.now()
+                                        });
+                                      }
                                     }
                                     //Navigator.of(context).pushNamed("/reportdetail");
                                   },
@@ -387,9 +401,9 @@ class _ReportDetailAdminScreenState extends State<ReportDetailAdminScreen> {
                                               .doc(arguments['docID'])
                                               .update({
                                             'Status': "ยกเลิกแล้ว",
-                                            'Cancel Reason': cancelText,
-                                            'Cancel Date': DateTime.now(),
-                                            'Cancel Date Text':
+                                            'Cancel_Reason': cancelText,
+                                            'Cancel_Date': DateTime.now(),
+                                            'Cancel_Date Text':
                                                 DateTime.now().toString()
                                           });
                                           Navigator.of(context)

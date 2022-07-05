@@ -41,7 +41,7 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
           InkWell(
             onTap: () {
-              Navigator.of(context).pushNamed("/");
+              // Navigator.of(context).pushNamed("/");
             },
             child: Container(
               height: 50,

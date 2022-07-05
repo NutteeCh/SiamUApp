@@ -177,7 +177,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 20, top: 20),
                     child: Text(
-                      "ham eiei ",
+                      "${userName} ${userSurname}",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.black,
@@ -272,7 +272,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 20, top: 20),
                     child: Text(
-                      "xxxxxxxxxx ",
+                      "${userSID}",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.black,
@@ -329,7 +329,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 20, top: 20),
                     child: Text(
-                      "คณะ ",
+                      "${userFaculty}",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.black,
@@ -380,7 +380,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 20, top: 20),
                     child: Text(
-                      "email",
+                      "${userEmail}",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.black,
@@ -458,7 +458,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             // await users.update({
                             // "Name": nameController.text,
                             // "Surname": surnameController.text,
-                            // "Student ID": studentidController.text,
+                            // "Student_ID": studentidController.text,
                             // "Faculty": facultyText,
                             // "ImageURL": imageURL,
                             // "email": emailController.text

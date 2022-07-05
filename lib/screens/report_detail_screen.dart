@@ -46,8 +46,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
+        child: Column(children: [
           StreamBuilder<DocumentSnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('report_form')
@@ -80,8 +79,8 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                   DateTime dt = t.toDate();
                   var newFormat = DateFormat('dd/MM/yyyy');
                   var date = newFormat.format(dt);
-                  if(snapshots.data?['Cancel Date']!=null){
-                    Timestamp ct = snapshots.data?['Cancel Date'];
+                  if (snapshots.data?['Cancel_Date'] != null) {
+                    Timestamp ct = snapshots.data?['Cancel_Date'];
                     DateTime cdt = ct.toDate();
                     var newFormat2 = DateFormat('dd/MM/yyyy');
                     cdate = newFormat.format(cdt);
@@ -94,8 +93,8 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                         children: [
                           Text(
                             "หัวข้อเรื่อง",
-                            style: TextStyle(
-                                fontSize: 12, color: SiamColors.grey),
+                            style:
+                                TextStyle(fontSize: 12, color: SiamColors.grey),
                           ),
                           Text("สถานะ",
                               style: TextStyle(
@@ -124,8 +123,8 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                         children: [
                           Text(
                             "ประเภท",
-                            style: TextStyle(
-                                fontSize: 12, color: SiamColors.grey),
+                            style:
+                                TextStyle(fontSize: 12, color: SiamColors.grey),
                           ),
                           Text("วันที่ส่งคำร้อง",
                               style: TextStyle(
@@ -153,8 +152,8 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                         children: [
                           Text(
                             "ผู้ร้องเรียน",
-                            style: TextStyle(
-                                fontSize: 12, color: SiamColors.grey),
+                            style:
+                                TextStyle(fontSize: 12, color: SiamColors.grey),
                           ),
                           Text("เบอร์โทรติดต่อกลับ",
                               style: TextStyle(
@@ -185,8 +184,8 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                         children: [
                           Text(
                             "เนื้อหา",
-                            style: TextStyle(
-                                fontSize: 12, color: SiamColors.grey),
+                            style:
+                                TextStyle(fontSize: 12, color: SiamColors.grey),
                           ),
                         ],
                       ),
@@ -209,22 +208,24 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                         children: [
                           Text(
                             "รูปภาพเพิ่มเติม",
-                            style: TextStyle(
-                                fontSize: 12, color: SiamColors.grey),
+                            style:
+                                TextStyle(fontSize: 12, color: SiamColors.grey),
                           ),
                         ],
                       ),
                       Container(
                         margin: const EdgeInsets.only(
-                            top: 20.0,),
+                          top: 20.0,
+                        ),
                         width: MediaQuery.of(context).size.width,
                         height: 300,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             image: DecorationImage(
-                                image: snapshots.data?['ImageURL'] != null ?
-                                    NetworkImage(snapshots.data?['ImageURL']) : 
-                                    NetworkImage('https://firebasestorage.googleapis.com/v0/b/siamuapp-63364.appspot.com/o/report_images%2Fimage-not-found.png?alt=media&token=1fd145ed-17fd-4e01-9385-7ab058d26649'),
+                                image: snapshots.data?['ImageURL'] != null
+                                    ? NetworkImage(snapshots.data?['ImageURL'])
+                                    : NetworkImage(
+                                        'https://firebasestorage.googleapis.com/v0/b/siamuapp-63364.appspot.com/o/report_images%2Fimage-not-found.png?alt=media&token=1fd145ed-17fd-4e01-9385-7ab058d26649'),
 
                                 // image: AssetImage(
                                 //   "assets/images/report_mock.jpg",
@@ -255,7 +256,10 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(snapshots.data?['Cancel Reason'] != null ? '${snapshots.data?['Cancel Reason']}' : '-',
+                            Text(
+                                snapshots.data?['Cancel_Reason'] != null
+                                    ? '${snapshots.data?['Cancel_Reason']}'
+                                    : '-',
                                 style: TextStyle(
                                   fontSize: 14,
                                 )),
@@ -278,24 +282,24 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
 
                           switch (isYes) {
                             case true:
-                            bool confirm = await showCupertinoDialog(
-                              context: context,
-                              builder: createCancelDialog,
-                            );
-                            if(confirm == true){
-                              FirebaseFirestore.instance
-                                .collection('report_form')
-                                .doc(arguments['docID'])
-                                .update({
-                                'Status': "ยกเลิกแล้ว",
-                                'Cancel Reason' : cancelText,
-                                'Cancel Date' : DateTime.now(),
-                                'Cancel Date Text' : DateTime.now().toString()
-                               });
-                               Navigator.of(context).pushNamed('/homebar');
-                            }
-                            Navigator.of(context).pop();
-                              
+                              bool confirm = await showCupertinoDialog(
+                                context: context,
+                                builder: createCancelDialog,
+                              );
+                              if (confirm == true) {
+                                FirebaseFirestore.instance
+                                    .collection('report_form')
+                                    .doc(arguments['docID'])
+                                    .update({
+                                  'Status': "ยกเลิกแล้ว",
+                                  'Cancel_Reason': cancelText,
+                                  'Cancel_Date': DateTime.now(),
+                                  'Cancel_Date Text': DateTime.now().toString()
+                                });
+                                Navigator.of(context).pushNamed('/homebar');
+                              }
+                              Navigator.of(context).pop();
+
                               break;
                             default:
                           }
@@ -370,7 +374,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
           child: Column(
             children: [
               TextField(
-                onChanged: (value){
+                onChanged: (value) {
                   setState(() {
                     cancelText = value;
                   });

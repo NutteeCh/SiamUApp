@@ -18,9 +18,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
   List<String> images = [
-    "assets/images/bottombg1.jpg",
-    "assets/images/homebg1.jpg",
-    "assets/images/logo.png"
+    "https://firebasestorage.googleapis.com/v0/b/siamuapp-63364.appspot.com/o/ads%2F269845784_4849070791802778_7204382519931424982_n.jpg?alt=media&token=9da70648-53f9-4bd7-93fc-c18779240479",
+    "https://firebasestorage.googleapis.com/v0/b/siamuapp-63364.appspot.com/o/ads%2F280754932_5275998395776680_7539697406378804306_n.jpg?alt=media&token=e24ab0fc-fa24-4227-866d-381751189663",
+    "https://firebasestorage.googleapis.com/v0/b/siamuapp-63364.appspot.com/o/ads%2F285625561_5341901632519689_6223211474078992005_n.jpg?alt=media&token=c40c0697-d592-4637-846d-ec421aa26d6b"
   ];
   int activePage = 0;
   final user = FirebaseAuth.instance.currentUser!;
@@ -38,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     });
   }
+
   // Firebase
   Future<void> getRole() async {
     var querySnapshot = await FirebaseFirestore.instance
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
       userRole = data['Role'];
       userName = data['Name'];
       userSurname = data['Surname'];
-      if(userRole=='admin'){
+      if (userRole == 'admin') {
         roleVisible = true;
       }
     }
@@ -76,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   fit: BoxFit.fitHeight)),
           child: Container(
             alignment: Alignment.centerRight,
-            margin: EdgeInsets.only(top: 30,right: 8.0),
+            margin: EdgeInsets.only(top: 30, right: 8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -86,48 +87,48 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     "$userRole",
                     style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: SiamColors.green,
-                    shadows: [
-                      Shadow(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: SiamColors.green,
+                      shadows: [
+                        Shadow(
                           blurRadius: 10.0,
                           color: Colors.black,
                           offset: Offset(5.0, 5.0),
-                          ),
+                        ),
                       ],
-                   ),
+                    ),
                   ),
                 ),
                 Text(
                   "สวัสดี",
                   style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
                         blurRadius: 10.0,
                         color: Colors.black,
                         offset: Offset(5.0, 5.0),
-                        ),
+                      ),
                     ],
-                 ),
+                  ),
                 ),
                 Text(
                   "คุณ ${userName} ${userSurname}",
                   style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
                         blurRadius: 10.0,
                         color: Colors.black,
                         offset: Offset(5.0, 5.0),
-                        ),
+                      ),
                     ],
-                 ),
+                  ),
                 ),
               ],
             ),
@@ -189,33 +190,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     ),
                 //   ]),
                 // ),
-                Container(
-                  margin: EdgeInsets.only(top: 30),
-                  height: 150,
-                  width: MediaQuery.of(context).size.width,
-                  child: PageView.builder(
-                      itemCount: images.length,
-                      pageSnapping: true,
-                      controller: _pageController,
-                      onPageChanged: (page) {
-                        setState(() {
-                          activePage = page;
-                        });
-                      },
-                      itemBuilder: (context, pagePosition) {
-                        return Container(
-                          margin: const EdgeInsets.all(8.0),
-                          child: Image.network(
-                            images[pagePosition],
-                            fit: BoxFit.cover),
-                        );
-                      }),
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: indicators(images.length, activePage)
-                ),
+                // Container(
+                //   margin: EdgeInsets.only(top: 30),
+                //   height: 150,
+                //   width: MediaQuery.of(context).size.width,
+                //   child: PageView.builder(
+                //       itemCount: images.length,
+                //       pageSnapping: true,
+                //       controller: _pageController,
+                //       onPageChanged: (page) {
+                //         setState(() {
+                //           activePage = page;
+                //         });
+                //       },
+                //       itemBuilder: (context, pagePosition) {
+                //         return Container(
+                //           margin: const EdgeInsets.all(8.0),
+                //           child: Image.network(images[pagePosition],
+                //               fit: BoxFit.cover),
+                //         );
+                //       }),
+                // ),
+                // Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: indicators(images.length, activePage)),
                 //สไลด์
+                SizedBox(
+                  height: 20,
+                ),
                 CarouselSlider(
                   options: CarouselOptions(
                       height: 150,
@@ -248,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                             image: DecorationImage(
-                              image: AssetImage(i),
+                              image: NetworkImage(i),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -264,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: indicators(images.length, activePage)),
                 SizedBox(
-                  height: 60.0,
+                  height: 20.0,
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -375,7 +377,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).pushNamed("/");
+                                // Navigator.of(context).pushNamed("/");
                               },
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 5.0),
@@ -418,7 +420,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ]),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Container(
                   margin:

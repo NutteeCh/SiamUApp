@@ -18,7 +18,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   bool issetState = true;
-  var image = 'https://firebasestorage.googleapis.com/v0/b/siamuapp-63364.appspot.com/o/profile_images%2Fnullprofile.png?alt=media&token=b2cd51ca-3924-4ca0-b8c7-6704d441ce72';
+  var image =
+      'https://firebasestorage.googleapis.com/v0/b/siamuapp-63364.appspot.com/o/profile_images%2Fnullprofile.png?alt=media&token=b2cd51ca-3924-4ca0-b8c7-6704d441ce72';
   // Firebase
   Future<void> getUser() async {
     if (issetState == true) {
@@ -29,7 +30,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       for (var queryDocumentSnapshot in querySnapshot.docs) {
         Map<String, dynamic> data = queryDocumentSnapshot.data();
         setState(() {
-          if(data['ImageURL']!= null){
+          userName = data["Name"];
+          userSurname = data["Surname"];
+          userSID = data["Student_ID"];
+          userFaculty = data["Faculty"];
+          userEmail = data["email"];
+          if (data['ImageURL'] != null) {
             image = data['ImageURL'];
           }
         });
@@ -135,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         alignment: Alignment.topLeft,
                         margin: EdgeInsets.only(left: 20, top: 20),
                         child: Text(
-                          "${snapshot.data?.docs[0]['Student ID']}",
+                          "${snapshot.data?.docs[0]['Student_ID']}",
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,
@@ -228,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   color: SiamColors.red,
                                 ),
                                 Text(
-                                  "แก้ไขข้อมูลส่วนตัว",
+                                  "แก้ไขรูปโปรไฟล์",
                                   style: TextStyle(
                                     color: SiamColors.red,
                                     fontSize: 14,

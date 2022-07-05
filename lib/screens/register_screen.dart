@@ -47,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     await users.add({
       "Name": nameController.text,
       "Surname": surnameController.text,
-      "Student ID": studentidController.text,
+      "Student_ID": studentidController.text,
       "Faculty": facultyText,
       "email": emailController.text,
       "password": passwordController.text,
