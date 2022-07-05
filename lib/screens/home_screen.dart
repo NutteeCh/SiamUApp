@@ -37,8 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     });
   }
-
-  var Role = '';
   // Firebase
   Future<void> getRole() async {
     var querySnapshot = await FirebaseFirestore.instance
@@ -47,7 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
         .get();
     for (var queryDocumentSnapshot in querySnapshot.docs) {
       Map<String, dynamic> data = queryDocumentSnapshot.data();
-      Role = data['Role'];
+      userRole = data['Role'];
+      userName = data['Name'];
+      userSurname = data['Surname'];
     }
   }
 
@@ -70,6 +70,32 @@ class _HomeScreenState extends State<HomeScreen> {
               image: DecorationImage(
                   image: AssetImage("assets/images/homebg1.jpg"),
                   fit: BoxFit.fitHeight)),
+          child: Container(
+            alignment: Alignment.centerRight,
+            margin: EdgeInsets.only(top: 50,right: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  "สวัสดี",
+                  style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                 ),
+                ),
+                Text(
+                  "คุณ ${userName} ${userSurname}",
+                  style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                 ),
+                ),
+              ],
+            ),
+          ),
         ),
         Container(
           height: double.infinity,
@@ -104,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           alignment: Alignment.topLeft,
                           margin: EdgeInsets.only(left: 20, top: 5),
                           child: Text(
-                            "นายเอ นามสกุลบี",
+                            "คุณ ${userName} ${userSurname}",
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -116,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             left: 120,
                           ),
                           child: Text(
-                            "ADMIN",
+                            "$userRole",
                             style: TextStyle(
                               fontSize: 30,
                               color: SiamColors.green,
@@ -267,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                if (Role == 'admin') {
+                                if (userRole == 'admin') {
                                   Navigator.of(context)
                                       .pushNamed("/reportlistadmin");
                                 } else {

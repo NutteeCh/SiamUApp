@@ -43,6 +43,7 @@ class _ReportListScreenState extends State<ReportListScreen> {
             stream: FirebaseFirestore.instance
                 .collection('report_form')
                 .where('UID', isEqualTo: userUID)
+                .orderBy('Date_Time', descending: true)
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {

@@ -15,6 +15,7 @@ String userName = "";
 String userSurname = "";
 String userFaculty = "";
 String userEmail = "";
+String userRole = "";
 
 final typeList = [
   'การเรียน',
@@ -49,5 +50,4 @@ final statusReport = [
   "ระบบได้รับคำร้องเรียนแล้ว", //สีดำ
   "กำลังดำเนินการ", //สีเหลือง
   "ดำเนินการเสร็จสิ้น", // สีเขียว
-  "ยกเลิกแล้ว", // สีแดง
 ];

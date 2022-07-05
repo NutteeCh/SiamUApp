@@ -18,7 +18,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   bool issetState = true;
-  var image = '';
+  var image = 'https://firebasestorage.googleapis.com/v0/b/siamuapp-63364.appspot.com/o/profile_images%2Fnullprofile.png?alt=media&token=b2cd51ca-3924-4ca0-b8c7-6704d441ce72';
   // Firebase
   Future<void> getUser() async {
     if (issetState == true) {
@@ -29,7 +29,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       for (var queryDocumentSnapshot in querySnapshot.docs) {
         Map<String, dynamic> data = queryDocumentSnapshot.data();
         setState(() {
-          image = data['ImageURL'];
+          if(data['ImageURL']!= null){
+            image = data['ImageURL'];
+          }
         });
       }
       setState(() {

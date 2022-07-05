@@ -506,6 +506,8 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                                 "UID": userUID,
                                 "Name": Name,
                                 "Surname": Surname,
+                                "Cancel Reason" : null,
+                                "Cancel Date" : null
                               });
                               showDialog(
                                   barrierDismissible: false,

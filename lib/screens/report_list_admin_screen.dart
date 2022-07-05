@@ -45,11 +45,11 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
           Container(
             margin: EdgeInsets.all(10.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
                         height: 40,
-                        width: 120,
+                        width: 180,
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
@@ -73,7 +73,7 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                       ),
                       Container(
                         height: 40,
-                        width: 120,
+                        width: 180,
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
@@ -94,40 +94,7 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                                 this.statusText = statusText as String?),
                           ),
                         ),
-                      ),
-                      InkWell(
-                                    onTap: () {
-                                    },
-                                    child: Container(
-                                        width: 100,
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                            color: SiamColors.red,
-                                            borderRadius: BorderRadius.circular(50)),
-                                        child: Container(
-                                          margin:
-                                              EdgeInsets.only(left: 22, right: 10),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "ค้นหา",
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              Icon(
-                                                Icons.search,
-                                                color: Colors.white,
-                                                size: 15,
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                        ),
-                                  )
+                      )
               ],
             ),
           ),
