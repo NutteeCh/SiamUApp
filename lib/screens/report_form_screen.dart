@@ -502,7 +502,7 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
                                 "ImageURL": imageURL,
                                 "Report_Date_Text": reportDateTime,
                                 "Date_Time": date,
-                                "Status": "ได้รับคำร้องเรียนแล้ว",
+                                "Status": "ระบบได้รับคำร้องเรียนแล้ว",
                                 "UID": userUID,
                                 "Name": Name,
                                 "Surname": Surname,

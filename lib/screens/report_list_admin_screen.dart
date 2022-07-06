@@ -48,53 +48,53 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                        height: 40,
-                        width: 180,
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(color: Colors.black)),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            hint: Text(
-                              'ประเภท',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: SiamColors.grey,
-                              ),
-                            ),
-                            value: reportTypeText,
-                            isExpanded: true,
-                            items: typeList.map(buildMenuItem).toList(),
-                            onChanged: (reportTypeText) => setState(() =>
-                                this.reportTypeText = reportTypeText as String?),
-                          ),
+                  height: 40,
+                  width: 180,
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(color: Colors.black)),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                      hint: Text(
+                        'ประเภท',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: SiamColors.grey,
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        width: 180,
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(color: Colors.black)),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            hint: Text(
-                              'สถานะ',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: SiamColors.grey,
-                              ),
-                            ),
-                            value: statusText,
-                            isExpanded: true,
-                            items: statusReport.map(buildMenuItem2).toList(),
-                            onChanged: (statusText) => setState(() =>
-                                this.statusText = statusText as String?),
-                          ),
+                      value: reportTypeText,
+                      isExpanded: true,
+                      items: typeList.map(buildMenuItem).toList(),
+                      onChanged: (reportTypeText) => setState(() =>
+                          this.reportTypeText = reportTypeText as String?),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  width: 180,
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(color: Colors.black)),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                      hint: Text(
+                        'สถานะ',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: SiamColors.grey,
                         ),
-                      )
+                      ),
+                      value: statusText,
+                      isExpanded: true,
+                      items: statusReport2.map(buildMenuItem2).toList(),
+                      onChanged: (statusText) => setState(
+                          () => this.statusText = statusText as String?),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -105,8 +105,8 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('report_form')
-                      .where('Type' ,isEqualTo: reportTypeText)
-                      .where('Status' ,isEqualTo: statusText)
+                      .where('Type', isEqualTo: reportTypeText)
+                      .where('Status', isEqualTo: statusText)
                       .orderBy('Date_Time', descending: true)
                       .snapshots(),
                   builder: (context, snapshot) {
@@ -115,8 +115,7 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                           child: Text("ข้อมูลผิดพลาด กรุณารีเฟรชใหม่"));
                     }
                     if (snapshot.hasData && snapshot.data!.docs.length == 0) {
-                      return const Center(
-                          child: Text("ไม่พบข้อมูล"));
+                      return const Center(child: Text("ไม่พบข้อมูล"));
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
@@ -140,7 +139,7 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                             default:
                               statusColor = Colors.black;
                           }
-                          
+
                           // if (snapshot.data?.docs[index]['Status'] ==
                           //     "กำลังดำเนินการ") {
                           //   statusColor = "yellow";
@@ -157,14 +156,15 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                                     color: Colors.grey.withOpacity(0.5),
                                     spreadRadius: 3,
                                     blurRadius: 7,
-                                    offset:
-                                        Offset(0, 3), // changes position of shadow
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
                                   ),
                                 ],
                                 color: Colors.white),
                             child: Column(children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "หัวข้อเรื่อง",
@@ -177,7 +177,8 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text("${snapshot.data?.docs[index]['Topic']}",
                                       style: TextStyle(
@@ -193,7 +194,8 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                                 height: 10,
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "ผู้ร้องเรียน",
@@ -206,7 +208,8 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                       "${snapshot.data?.docs[index]['Name']}  ${snapshot.data?.docs[index]['Surname']}",
@@ -223,11 +226,13 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                                 height: 5,
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "สถานะ",
@@ -236,7 +241,8 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                                             color: SiamColors.grey,
                                             fontFamily: "Prompt"),
                                       ),
-                                      Text("${snapshot.data?.docs[index]['Status']}",
+                                      Text(
+                                          "${snapshot.data?.docs[index]['Status']}",
                                           style: TextStyle(
                                             color: statusColor,
                                             fontSize: 14,
@@ -260,10 +266,11 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                                         height: 35,
                                         decoration: BoxDecoration(
                                             color: SiamColors.red,
-                                            borderRadius: BorderRadius.circular(50)),
+                                            borderRadius:
+                                                BorderRadius.circular(50)),
                                         child: Container(
-                                          margin:
-                                              EdgeInsets.only(left: 22, right: 10),
+                                          margin: EdgeInsets.only(
+                                              left: 22, right: 10),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -282,8 +289,7 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
                                               )
                                             ],
                                           ),
-                                        )
-                                        ),
+                                        )),
                                   )
                                 ],
                               )
@@ -308,14 +314,14 @@ class _ReportListAdminScreen extends State<ReportListAdminScreen> {
         ),
       );
 
-  DropdownMenuItem<String> buildMenuItem2(String statusReport) => DropdownMenuItem(
+  DropdownMenuItem<String> buildMenuItem2(String statusReport) =>
+      DropdownMenuItem(
         value: statusReport,
         child: Text(
           statusReport,
           style: TextStyle(fontSize: 14),
         ),
       );
-
 }
 
 class CardItem {
