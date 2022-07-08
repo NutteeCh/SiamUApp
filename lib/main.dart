@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:projectreportsiamu/screens/admin_dashboard_screen.dart';
 import 'package:projectreportsiamu/screens/check_state.dart';
 import 'package:projectreportsiamu/screens/edit_profile_screen.dart';
 import 'package:projectreportsiamu/screens/home_bottombar.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         "/setting": (context) => const SettingScreen(),
         "/reportlistadmin": (context) => const ReportListAdminScreen(),
         "/check": (context) => CheckState(),
+        "/dashboard": (context) => const AdminDashboardScreen(),
       },
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );

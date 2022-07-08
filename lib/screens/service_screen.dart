@@ -15,6 +15,17 @@ class ServiceScreen extends StatefulWidget {
 
 class _ServiceScreenState extends State<ServiceScreen> {
   final URLLaunch ulaunch = new URLLaunch();
+
+  @override
+  void initState() {
+    super.initState();
+    if(userRole=='admin'){
+      setState(() {
+        roleVisible=true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +33,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
         automaticallyImplyLeading: false,
         toolbarHeight: 76,
         title: Text(
-          "หน่วยงานบริการ",
+          "หน่วยงานบริการทั้งหมด",
           style: TextStyle(
               color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
         ),
@@ -43,7 +54,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
               alignment: Alignment.topLeft,
               margin: EdgeInsets.only(left: 20, top: 20),
               child: Text(
-                "ร้องเรียนปัญหา",
+                "บริการ",
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.black,
@@ -95,46 +106,89 @@ class _ServiceScreenState extends State<ServiceScreen> {
                         ),
                       ],
                     ),
-                    Column(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed("/reportlist");
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(bottom: 5.0),
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 3,
-                                    blurRadius: 7,
-                                    offset: Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-                                color: SiamColors.red,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Center(
-                                child: Icon(
-                              Icons.list_alt,
-                              color: Colors.white,
-                              size: 50,
-                            )),
+                    // Column(
+                    //   children: [
+                    //     InkWell(
+                    //       onTap: () {
+                    //         Navigator.of(context).pushNamed("/reportlist");
+                    //       },
+                    //       child: Container(
+                    //         margin: EdgeInsets.only(bottom: 5.0),
+                    //         height: 80,
+                    //         width: 80,
+                    //         decoration: BoxDecoration(
+                    //             boxShadow: [
+                    //               BoxShadow(
+                    //                 color: Colors.grey.withOpacity(0.5),
+                    //                 spreadRadius: 3,
+                    //                 blurRadius: 7,
+                    //                 offset: Offset(
+                    //                     0, 3), // changes position of shadow
+                    //               ),
+                    //             ],
+                    //             color: SiamColors.red,
+                    //             borderRadius:
+                    //                 BorderRadius.all(Radius.circular(10))),
+                    //         child: Center(
+                    //             child: Icon(
+                    //           Icons.list_alt,
+                    //           color: Colors.white,
+                    //           size: 50,
+                    //         )),
+                    //       ),
+                    //     ),
+                    //     Text(
+                    //       "รายการที่ร้องเรียน",
+                    //       style: TextStyle(
+                    //         fontSize: 10,
+                    //         color: Colors.black,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    Visibility(
+                          visible: roleVisible,
+                          child: Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed("/dashboard");
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 5.0),
+                                  height: 80,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 3,
+                                          blurRadius: 7,
+                                          offset: Offset(
+                                              0, 3), // changes position of shadow
+                                        ),
+                                      ],
+                                      color: SiamColors.red,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10))),
+                                  child: Center(
+                                      child: Icon(
+                                    Icons.analytics,
+                                    color: Colors.white,
+                                    size: 50,
+                                  )),
+                                ),
+                              ),
+                              Text(
+                                "รายงานสรุปผล",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Text(
-                          "รายการที่ร้องเรียน",
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
                     Container(
                       height: 80,
                       width: 80,

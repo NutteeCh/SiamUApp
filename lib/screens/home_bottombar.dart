@@ -19,6 +19,7 @@ class HomeBottomBar extends StatefulWidget {
 }
 
 class _HomeBottomBarState extends State<HomeBottomBar> {
+
   int currentTab = 2;
   final List<Widget> screens = [
     const ProfileScreen(),
@@ -28,8 +29,20 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
     const SettingScreen()
   ];
   final user = FirebaseAuth.instance.currentUser!;
-  var Role = '';
+  //var Role = '';
   // Firebase
+  // Future<void> getRole() async {
+  //   var querySnapshot = await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .where('UID', isEqualTo: user.uid)
+  //       .get();
+  //   for (var queryDocumentSnapshot in querySnapshot.docs) {
+  //     Map<String, dynamic> data = queryDocumentSnapshot.data();
+  //     Role = data['Role'];
+  //   }
+  // }
+  //bool roleVisible = false;
+
   Future<void> getRole() async {
     var querySnapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -37,7 +50,12 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
         .get();
     for (var queryDocumentSnapshot in querySnapshot.docs) {
       Map<String, dynamic> data = queryDocumentSnapshot.data();
-      Role = data['Role'];
+      userRole = data['Role'];
+      userName = data['Name'];
+      userSurname = data['Surname'];
+      if (userRole == 'admin') {
+        roleVisible = true;
+      }
     }
   }
 
@@ -45,8 +63,14 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
   Widget currentScreen = const HomeScreen();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     getRole();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //getRole();
     return Scaffold(
       body: PageStorage(
         child: currentScreen,
@@ -116,7 +140,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
                 splashColor: Colors.transparent,
                 minWidth: 40,
                 onPressed: () {
-                  setState(() {});
+                  //setState(() {});
                 },
                 child: Center(
                   child: Icon(
@@ -128,7 +152,7 @@ class _HomeBottomBarState extends State<HomeBottomBar> {
               MaterialButton(
                 minWidth: 40,
                 onPressed: () {
-                  if (Role == 'admin') {
+                  if (userRole == 'admin') {
                     setState(() {
                       currentScreen = const ReportListAdminScreen();
                       currentTab = 3;
