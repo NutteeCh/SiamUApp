@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../ีutils/global_variable.dart';
 import 'package:projectreportsiamu/services/url_launch.dart';
@@ -19,9 +20,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
   @override
   void initState() {
     super.initState();
-    if(userRole=='admin'){
+    if (userRole == 'admin') {
       setState(() {
-        roleVisible=true;
+        roleVisible = true;
       });
     }
   }
@@ -147,48 +148,48 @@ class _ServiceScreenState extends State<ServiceScreen> {
                     //   ],
                     // ),
                     Visibility(
-                          visible: roleVisible,
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).pushNamed("/dashboard");
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(bottom: 5.0),
-                                  height: 80,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 3,
-                                          blurRadius: 7,
-                                          offset: Offset(
-                                              0, 3), // changes position of shadow
-                                        ),
-                                      ],
-                                      color: SiamColors.red,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10))),
-                                  child: Center(
-                                      child: Icon(
-                                    Icons.analytics,
-                                    color: Colors.white,
-                                    size: 50,
-                                  )),
-                                ),
-                              ),
-                              Text(
-                                "รายงานสรุปผล",
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
+                      visible: roleVisible,
+                      child: Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamed("/dashboard");
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: 5.0),
+                              height: 80,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 3,
+                                      blurRadius: 7,
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                  color: SiamColors.red,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Center(
+                                  child: Icon(
+                                Icons.analytics,
+                                color: Colors.white,
+                                size: 50,
+                              )),
+                            ),
                           ),
-                        ),
+                          Text(
+                            "รายงานสรุปผล",
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Container(
                       height: 80,
                       width: 80,
@@ -219,7 +220,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).pushNamed("/");
+                            launchUrlString("tel://028678088");
                           },
                           child: Container(
                             margin: EdgeInsets.only(bottom: 5.0),
@@ -240,7 +241,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                     BorderRadius.all(Radius.circular(10))),
                             child: Center(
                                 child: Icon(
-                              Icons.person_pin_sharp,
+                              Icons.contact_phone,
                               color: Colors.white,
                               size: 50,
                             )),

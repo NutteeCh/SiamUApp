@@ -37,6 +37,7 @@ dependencies:
   carousel_slider: ^4.1.1
   url_launcher: ^6.1.2
   image_picker: ^0.8.5+3
+  percent_indicator: ^4.2.2
 
   # Firebase Database
   firebase_core: ^1.17.1
