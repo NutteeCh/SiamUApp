@@ -17,7 +17,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   int key1 = 0;
   int key2 = 0;
   late List<Report> _report = [];
-  late List<Report> _type = [];
 
   Map<String, double> getStatusData() {
     Map<String, double> statusMap = {};
@@ -42,6 +41,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         typeMap.update(item.Type, (int) => typeMap[item.Type]! + 1);
         // test[item.category] = test[item.category]! + 1;
       }
+      // print(statusMap);
     }
     return typeMap;
   }
@@ -52,9 +52,21 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     SiamColors.yellow,
   ];
 
+  List<Color> colorList2 = [
+    Color(0xFFEE2988),
+    Color(0xFFEE292F),
+    Color(0xFFFC6020),
+    Color(0xFFFFD600),
+    Color(0xFF2DEE29),
+    Color(0xFF29D6EE),
+    Color(0xFF2D29EE),
+    Color(0xFFA329EE),
+    Color(0xFFFF00E5),
+    Color(0xFFC77700),
+  ];
+
   Widget pieChartExampleOne() {
     return PieChart(
-      key: ValueKey(key1),
       dataMap: getStatusData(),
       initialAngleInDegree: 0,
       animationDuration: Duration(milliseconds: 1000),
@@ -83,10 +95,43 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     );
   }
 
+  Widget pieChartExampleTwo(){
+    return PieChart(
+          key: ValueKey(key2),
+          dataMap: getTypeData(),
+          initialAngleInDegree: 0,
+          animationDuration: Duration(milliseconds: 1000),
+          chartType: ChartType.ring,
+          chartRadius: MediaQuery.of(context).size.width / 3.2,
+          ringStrokeWidth: 32,
+          colorList: colorList2,
+          chartLegendSpacing: 32,
+          chartValuesOptions: const ChartValuesOptions(
+              showChartValuesOutside: true,
+              showChartValuesInPercentage: true,
+              showChartValueBackground: true,
+              showChartValues: true,
+              chartValueStyle:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+          centerText: 'ประเภท',
+          legendOptions: const LegendOptions(
+              showLegendsInRow: false,
+              showLegends: true,
+              legendShape: BoxShape.rectangle,
+              legendPosition: LegendPosition.right,
+              legendTextStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              )),
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> expStream =
-        FirebaseFirestore.instance.collection('report_form').snapshots();
+    Stream<QuerySnapshot> expStream =
+        FirebaseFirestore.instance.collection('report_form')
+        .orderBy('Type', descending: false)
+        .snapshots();
 
     void getExpfromSnapshot(snapshot) {
       if (snapshot.docs.isNotEmpty) {
@@ -151,7 +196,16 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                   final data = snapshot.requireData;
                   // print("Data: $data");
                   getExpfromSnapshot(data);
-                  return pieChartExampleOne();
+                  return 
+                  Column(
+                    children: [
+                      pieChartExampleOne(),
+                      Container(
+                        height: 100,
+                      ),
+                      pieChartExampleTwo()
+                    ],
+                  );
                 },
               ),
             ),
