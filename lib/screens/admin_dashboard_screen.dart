@@ -49,9 +49,10 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   }
 
   List<Color> colorList = [
-    SiamColors.yellow,
-    SiamColors.green,
-    SiamColors.red,
+    Color(0xFFA329EE),
+    Color(0xFF29D6EE),
+    Color.fromARGB(255, 0, 8, 255),
+    Color.fromARGB(255, 4, 198, 1),
   ];
 
   List<Color> colorList2 = [
@@ -132,7 +133,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   Widget build(BuildContext context) {
     Stream<QuerySnapshot> expStream = FirebaseFirestore.instance
         .collection('report_form')
-        .orderBy('Type', descending: false)
+        // .orderBy('Status', descending: true)
         .snapshots();
 
     void getExpfromSnapshot(snapshot) {
@@ -206,7 +207,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                             "คำร้องทั้งหมด : $allReport",
                             style: TextStyle(fontSize: 18),
                           )),
-                      pieChartExampleOne(),
+                      Container(
+                          margin: EdgeInsets.only(left: 40),
+                          child: pieChartExampleOne()),
                       Container(
                         height: 100,
                       ),
