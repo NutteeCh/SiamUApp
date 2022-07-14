@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 import '../ีutils/global_variable.dart';
 
@@ -13,8 +14,94 @@ class AdminDashboardScreen extends StatefulWidget {
 }
 
 class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
+  int key1 = 0;
+  int key2 = 0;
+  late List<Report> _report = [];
+  late List<Report> _type = [];
+
+  Map<String, double> getStatusData() {
+    Map<String, double> statusMap = {};
+    for (var item in _report) {
+      if (statusMap.containsKey(item.Status) == false) {
+        statusMap[item.Status] = 1;
+      } else {
+        statusMap.update(item.Status, (int) => statusMap[item.Status]! + 1);
+        // test[item.category] = test[item.category]! + 1;
+      }
+      // print(statusMap);
+    }
+    return statusMap;
+  }
+
+  Map<String, double> getTypeData() {
+    Map<String, double> typeMap = {};
+    for (var item in _report) {
+      if (typeMap.containsKey(item.Type) == false) {
+        typeMap[item.Type] = 1;
+      } else {
+        typeMap.update(item.Type, (int) => typeMap[item.Type]! + 1);
+        // test[item.category] = test[item.category]! + 1;
+      }
+    }
+    return typeMap;
+  }
+
+  List<Color> colorList = [
+    SiamColors.red,
+    SiamColors.green,
+    SiamColors.yellow,
+  ];
+
+  Widget pieChartExampleOne() {
+    return PieChart(
+      key: ValueKey(key1),
+      dataMap: getStatusData(),
+      initialAngleInDegree: 0,
+      animationDuration: Duration(milliseconds: 1000),
+      chartType: ChartType.ring,
+      chartRadius: MediaQuery.of(context).size.width / 3.2,
+      ringStrokeWidth: 32,
+      colorList: colorList,
+      chartLegendSpacing: 32,
+      chartValuesOptions: const ChartValuesOptions(
+          showChartValuesOutside: true,
+          showChartValuesInPercentage: true,
+          showChartValueBackground: true,
+          showChartValues: true,
+          chartValueStyle:
+              TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+      centerText: 'สถานะ',
+      legendOptions: const LegendOptions(
+          showLegendsInRow: false,
+          showLegends: true,
+          legendShape: BoxShape.rectangle,
+          legendPosition: LegendPosition.right,
+          legendTextStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> expStream =
+        FirebaseFirestore.instance.collection('report_form').snapshots();
+
+    void getExpfromSnapshot(snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        _report = [];
+        for (int i = 0; i < snapshot.docs.length; i++) {
+          var a = snapshot.docs[i];
+          // print(a.data());
+          Report rep = Report.fromJson(a.data());
+          _report.add(rep);
+          // print(exp);
+
+        }
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         // automaticallyImplyLeading: true,
@@ -50,14 +137,23 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
             ),
             Container(
               padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(top: 30),
               //height: MediaQuery.of(context).size.height - 200,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: carditems.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return buildpetcard(item: carditems[index]);
-                  }),
+              child: StreamBuilder<Object>(
+                stream: expStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text("something went wrong");
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  }
+                  final data = snapshot.requireData;
+                  // print("Data: $data");
+                  getExpfromSnapshot(data);
+                  return pieChartExampleOne();
+                },
+              ),
             ),
           ],
         ),
@@ -66,170 +162,22 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   }
 }
 
-class CardItem {
-  String topic, category, name, tel, status;
-  CardItem(
-      {required this.topic,
-      required this.category,
-      required this.name,
-      required this.tel,
-      required this.status});
-}
+class Report {
+  String UID;
+  String Status;
+  String Type;
 
-List<CardItem> carditems = [
-  CardItem(
-    topic: "อยากได้ตึกภาคใหม่",
-    category: "การเรียน",
-    name: "อนรรฆภูมิ ศรีอำไพ",
-    tel: "0655632693",
-    status: "กำลังดำเนินการ",
-  ),
-  CardItem(
-    topic: "อยากได้ตึกภาคใหม่",
-    category: "การเรียน",
-    name: "อนรรฆภูมิ ศรีอำไพ",
-    tel: "0655632693",
-    status: "กำลังดำเนินการ",
-  ),
-  CardItem(
-    topic: "อยากได้ตึกภาคใหม่",
-    category: "การเรียน",
-    name: "อนรรฆภูมิ ศรีอำไพ",
-    tel: "0655632693",
-    status: "กำลังดำเนินการ",
-  ),
-  CardItem(
-    topic: "อยากได้ตึกภาคใหม่",
-    category: "การเรียน",
-    name: "อนรรฆภูมิ ศรีอำไพ",
-    tel: "0655632693",
-    status: "กำลังดำเนินการ",
-  ),
-];
+  Report({
+    required this.UID,
+    required this.Status,
+    required this.Type,
+  });
 
-Widget buildpetcard(context, {required CardItem item}) => Container(
-      padding: EdgeInsets.all(15),
-      margin: EdgeInsets.all(10),
-      height: 166,
-      width: 378,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
-              blurRadius: 7,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
-          color: Colors.white),
-      child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "หัวข้อเรื่อง",
-              style: TextStyle(fontSize: 12, color: SiamColors.grey),
-            ),
-            Text("ประเภท",
-                style: TextStyle(fontSize: 12, color: SiamColors.grey))
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(item.topic,
-                style: TextStyle(
-                  fontSize: 14,
-                )),
-            Text(item.category,
-                style: TextStyle(
-                  fontSize: 14,
-                ))
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "ผู้ร้องเรียน",
-              style: TextStyle(fontSize: 12, color: SiamColors.grey),
-            ),
-            Text("เบอร์โทรติดต่อกลับ",
-                style: TextStyle(fontSize: 12, color: SiamColors.grey))
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(item.name,
-                style: TextStyle(
-                  fontSize: 14,
-                )),
-            Text(item.tel,
-                style: TextStyle(
-                  fontSize: 14,
-                ))
-          ],
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "สถานะ",
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: SiamColors.grey,
-                      fontFamily: "Prompt"),
-                ),
-                Text(item.status,
-                    style: TextStyle(
-                      fontSize: 14,
-                    ))
-              ],
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed("/reportdetail");
-              },
-              child: Container(
-                  width: 105,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      color: SiamColors.red,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Container(
-                    margin: EdgeInsets.only(left: 45, right: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "ดู",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.white,
-                          size: 15,
-                        )
-                      ],
-                    ),
-                  )),
-            )
-          ],
-        )
-      ]),
+  factory Report.fromJson(Map<String, dynamic> json) {
+    return Report(
+      UID: json['UID'],
+      Status: json['Status'],
+      Type: json['Type'],
     );
+  }
+}
