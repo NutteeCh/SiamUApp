@@ -16,6 +16,8 @@ class AdminDashboardScreen extends StatefulWidget {
 class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   int key1 = 0;
   int key2 = 0;
+  int allReport = 0;
+
   late List<Report> _report = [];
 
   Map<String, double> getStatusData() {
@@ -47,9 +49,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   }
 
   List<Color> colorList = [
-    SiamColors.red,
-    SiamColors.green,
     SiamColors.yellow,
+    SiamColors.green,
+    SiamColors.red,
   ];
 
   List<Color> colorList2 = [
@@ -95,41 +97,41 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     );
   }
 
-  Widget pieChartExampleTwo(){
+  Widget pieChartExampleTwo() {
     return PieChart(
-          key: ValueKey(key2),
-          dataMap: getTypeData(),
-          initialAngleInDegree: 0,
-          animationDuration: Duration(milliseconds: 1000),
-          chartType: ChartType.ring,
-          chartRadius: MediaQuery.of(context).size.width / 3.2,
-          ringStrokeWidth: 32,
-          colorList: colorList2,
-          chartLegendSpacing: 32,
-          chartValuesOptions: const ChartValuesOptions(
-              showChartValuesOutside: true,
-              showChartValuesInPercentage: true,
-              showChartValueBackground: true,
-              showChartValues: true,
-              chartValueStyle:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-          centerText: 'ประเภท',
-          legendOptions: const LegendOptions(
-              showLegendsInRow: false,
-              showLegends: true,
-              legendShape: BoxShape.rectangle,
-              legendPosition: LegendPosition.right,
-              legendTextStyle: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              )),
-        );
+      key: ValueKey(key2),
+      dataMap: getTypeData(),
+      initialAngleInDegree: 0,
+      animationDuration: Duration(milliseconds: 1000),
+      chartType: ChartType.ring,
+      chartRadius: MediaQuery.of(context).size.width / 3.2,
+      ringStrokeWidth: 32,
+      colorList: colorList2,
+      chartLegendSpacing: 32,
+      chartValuesOptions: const ChartValuesOptions(
+          showChartValuesOutside: true,
+          showChartValuesInPercentage: true,
+          showChartValueBackground: true,
+          showChartValues: true,
+          chartValueStyle:
+              TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+      centerText: 'ประเภท',
+      legendOptions: const LegendOptions(
+          showLegendsInRow: false,
+          showLegends: true,
+          legendShape: BoxShape.rectangle,
+          legendPosition: LegendPosition.right,
+          legendTextStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          )),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    Stream<QuerySnapshot> expStream =
-        FirebaseFirestore.instance.collection('report_form')
+    Stream<QuerySnapshot> expStream = FirebaseFirestore.instance
+        .collection('report_form')
         .orderBy('Type', descending: false)
         .snapshots();
 
@@ -142,7 +144,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
           Report rep = Report.fromJson(a.data());
           _report.add(rep);
           // print(exp);
-
+          allReport = snapshot.docs.length;
         }
       }
     }
@@ -196,9 +198,14 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                   final data = snapshot.requireData;
                   // print("Data: $data");
                   getExpfromSnapshot(data);
-                  return 
-                  Column(
+                  return Column(
                     children: [
+                      Container(
+                          margin: EdgeInsets.only(bottom: 50),
+                          child: Text(
+                            "คำร้องทั้งหมด : $allReport",
+                            style: TextStyle(fontSize: 18),
+                          )),
                       pieChartExampleOne(),
                       Container(
                         height: 100,
