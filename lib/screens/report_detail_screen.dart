@@ -294,7 +294,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                                   'Status': "ยกเลิกแล้ว",
                                   'Cancel_Reason': cancelText,
                                   'Cancel_Date': DateTime.now(),
-                                  'Cancel_Date Text': DateTime.now().toString()
+                                  'Cancel_Date_Text': DateTime.now().toString()
                                 });
                                 Navigator.of(context).pushNamed('/homebar');
                               }

@@ -403,7 +403,7 @@ class _ReportDetailAdminScreenState extends State<ReportDetailAdminScreen> {
                                             'Status': "ยกเลิกแล้ว",
                                             'Cancel_Reason': cancelText,
                                             'Cancel_Date': DateTime.now(),
-                                            'Cancel_Date Text':
+                                            'Cancel_Date_Text':
                                                 DateTime.now().toString()
                                           });
                                           Navigator.of(context)
