@@ -204,7 +204,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                       Container(
                           margin: EdgeInsets.only(bottom: 50),
                           child: Text(
-                            "คำร้องทั้งหมด : $allReport",
+                            "คำร้องทั้งหมด : $allReport เรื่อง",
                             style: TextStyle(fontSize: 18),
                           )),
                       Container(

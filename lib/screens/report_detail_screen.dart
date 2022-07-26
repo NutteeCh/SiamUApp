@@ -61,7 +61,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                   switch (snapshots.data!['Status']) {
                     case "กำลังดำเนินการ":
                       statusColor = SiamColors.yellow;
-                      cancelBT = true;
+                      cancelBT = false;
                       break;
                     case "ดำเนินการเสร็จสิ้น":
                       statusColor = SiamColors.green;
