@@ -227,19 +227,19 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
 }
 
 class Report {
-  String UID;
+  // String UID;
   String Status;
   String Type;
 
   Report({
-    required this.UID,
+    // required this.UID,
     required this.Status,
     required this.Type,
   });
 
   factory Report.fromJson(Map<String, dynamic> json) {
     return Report(
-      UID: json['UID'],
+      // UID: json['UID'],
       Status: json['Status'],
       Type: json['Type'],
     );
